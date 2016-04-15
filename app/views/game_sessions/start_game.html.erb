@@ -1,0 +1,23 @@
+<% provide :title, 'Page Wait' %>
+
+<% provide :head do %>
+  <%= javascript_include_tag 'jquery', 'game_waiting'%>
+  <%= stylesheet_link_tag 'game_sessions/page_wait'%>
+<% end %>
+
+<% provide :body do %>
+  <%= render :partial => 'partials/header',
+             :locals => {:page_name => 'Wait Game', :link_address => root_url} %>
+
+  <div id="info">
+    <div id = "message">
+      Please, wait. Your game will start as soon as possible.
+    </div>
+
+    <div id = 'game-status'>
+      How many players waiting: <span id = 'players-count'></span>
+    </div>
+  </div>
+
+  <%= image_tag('game_sessions/squares.gif', class: 'animation')%>
+<% end %>

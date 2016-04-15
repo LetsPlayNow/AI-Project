@@ -1,0 +1,150 @@
+<%provide :title, 'Funny tutorial'%>
+<%provide :head do%>
+  <%= stylesheet_link_tag 'static_pages/code-highlight', 'static_pages/help'%>
+<% end %>
+
+<%provide :body do%>
+  <div id="header">
+    <h1>\ <%=link_to 'AI - Project', root_url%> \ Funny tutorial </h1>
+    <h3>Write your own AI!</h3>
+  </div>
+
+  <p>Приветствую вас на этой странице, призванной помочь вам разобраться в этом нелегком игровом мире.
+  И помогут нам в этом два закадычных товарища.</p>
+
+  <p>Это Боб, он Юнит.</p>
+  <%= image_tag 'game_sessions/unit.png', width: '10%'%>
+  <p>А это — Джордж, он Снаряд.</p>
+  <%= image_tag 'game_sessions/shell_dark.png', width: '10%'%>
+
+  <h2>Боб:</h2>
+  <ul>
+    <li>Отличный Юнит</li>
+    <li>У него есть стратегия на любой случай</li>
+    <li>Круглый (его радиус = Unit::Radius)</li>
+    <li>Умеет ходить (unit.go_to)</li>
+    <li>Текущее местонахождение: (unit.location)</li>
+    <li>Умеет призывать Джорджа (unit.shoot_to)</li>
+  </ul>
+
+  <h2>Джордж:</h2>
+  <ul>
+    <li>Прекрасный снаряд</li>
+    <li>Несколько вспыльчив</li>
+    <li>Большой и круглый (его радиус = Shell::Radius)</li>
+    <li>Умеет летать (до shell.destination)</li>
+    <li>На данный момент находится в (shell.location)</li>
+    <li>Имеет неопределенное количество братьев — близнецов</li>
+  </ul>
+
+
+  <h2>Немного об игровом мире</h2>
+  <div id="about-game-world" class="description">
+    <strong>Мир</strong> представляет из себя квадрат со стороной (World::MapSize).
+    <p class = "short-descr">В мире Боба и Джорджа время течет, как в пошаговой стратегии.
+      За 1 шаг Боб может пройти в общей сложности (World::GoToDistanceLimit).
+      Также за игровой шаг в мире может случиться много интересного — Джордж пролетит еще 1  игровой метр,
+      Боб пройдет половину игрового мира и т.д. И чтобы Боб и Джордж не тратили шаги попросту, их число ограничено (World::TackLimit).</p>
+
+
+    <p class = "short-descr">В мире Боба и Джорджа есть также единица времени аналогичная реальным секундам.
+      Назовем ее игровой секундой. 1 шаг может длиться разное количество секунд, в зависимости от того,
+      что Боб пожелает сделать за этот шаг.</p>
+
+    <p>Пусть в игровом мире будет аналогия реальному метру. Назовем его — игровым метром.
+      На рисунке пусть это будет длина оранжевой линии.</p>
+    <%= image_tag 'static_pages/game_meter.png', width: '20%'%>
+  </div>
+
+
+  <p>Вспомним всем известную формулу равномерного прямолинейного движения V = S / t. Отсюда получаем скорость.</p>
+  Ниже представлена таблица единиц измерения нашего игрового мира.
+
+  <table border="1">
+    <tr>
+      <th>Величина</th>
+      <th>Единица измерения</th>
+      <th>Сокращение</th>
+    </tr>
+
+    <tr><td>S (расстояние)</td><td>игровой метр</td><td>и.м.</td></tr>
+    <tr><td>T (Время)</td><td>игровая секунда</td><td>и.с.</td></tr>
+    <tr><td>V (Скорость)</td><td>игровой метр / игровая секунда</td><td>и.м. / и.с.</td></tr>
+  </table>
+
+  <h2>Жизнь Боба и Джорджа</h2>
+
+  <p class="short-descr">Боб не только юнит, он еще и отличный волшебник.
+    И как у всякого уважающего себя волшебника, у него есть манна.
+    У него ее может быть (Unit::MapMP), но сейчас у него ее (unit.mp).
+    Так же Боб обладает запасом здоровья. Его у него может быть (Unit::MaxHP).
+    Но сейчас у него его (unit.hp).</p>
+
+
+  <p class="short-descr">Если у Боба возникают проблемы с кем — то, он может потратить немного манны (World::ShootCosts) и призвать Джорджа(unit.shoot_to(x,y)).
+    Увы, дело это нелегкое и чтобы призвать Джорда, нужно подождать на месте около World::ShellDelay секунд.</p>
+
+  <p class="short-descr">Призванный Джордж летит навстречу судьбе, туда, куда послал его Боб
+    и наносит урон величиной (Shell::Damage) первому встретившемуся бедолаге.
+    Джордж обычно очень зол тем, что Боб вызывает его слишком часто.
+    Если бы Боб попался Джорджу на пути — беды было не миновать.
+    Поэтому Боб, умудренный горьким опытом, призывает Джорджа на расстоянии (ShootDistance).</p>
+
+  <p class="short-descr">Иногда мир Боба и Джорджа пересекается с другими мирами.
+    Из них приходят другие юниты со своими снарядами. И тогда происходит битва.</p>
+
+  <p>У каждого уважающего себя Боба должна быть стратегия на любой случай жизни, даже на вторжение другого Боба.</p>
+  <h3>О стратегии</h3>
+  Каждый уважающий себя Боб понимает язык программирования Ruby.
+  <!-- Так выглядит код, подсвеченный редактором http://dumpz.org/1677903/html/-->
+  <div class="highlight"><pre><div id="lc1"><span class="k">class</span> <span class="nc">Strategy</span>
+  </div><div id="lc2">  <span class="kp">attr_accessor</span> <span class="ss">:my_unit</span><span class="p">,</span> <span class="ss">:info</span>
+  </div><div id="lc3">
+  </div><div id="lc4">  <span class="k">def</span> <span class="nf">initialize</span>
+  </div><div id="lc5">    <span class="vi">@my_unit</span> <span class="o">=</span> <span class="no">Unit</span><span class="o">.</span><span class="n">new</span>  <span class="c1"># Это Боб! Поприветствуем его</span>
+  </div><div id="lc6">    <span class="vi">@info</span>    <span class="o">=</span> <span class="no">World</span><span class="o">.</span><span class="n">new</span> <span class="c1"># А это мир, в котором живет Боб</span>
+  </div><div id="lc7">  <span class="k">end</span>
+  </div><div id="lc8">
+  </div><div id="lc9">  <span class="k">def</span> <span class="nf">move</span>
+  </div><div id="lc10">  <span class="c1"># Здесь будет описаны действия Боба на все случаи его жизни</span>
+  </div><div id="lc11">  <span class="k">end</span>
+  </div><div id="lc12"><span class="k">end</span>
+  </div></pre></div>
+
+
+  <p class = "short-descr">И вот миры пересеклись. Боба и его незнакомого противника переместили на исходные позиции.
+    Выбор Исходной позиции юнита зависит от неведомых нам обстоятельств.
+    Но это или точка с координатами (1;1) или (World::MapSize – 1;  World::MapSize – 1).</p>
+
+  <p class = "short-descr">Мы на точке (1;1).
+    Другой волшебник настроен агрессивно.
+    Что же делать?</p>
+
+
+  <p>Попробуем прощупать его оборону. Выстрелим в него пару раз.</p>
+  <!-- Так выглядит код, подсвеченный редактором http://dumpz.org/1677904/html/-->
+  <div class="highlight"><pre><div id="lc1"><span class="k">class</span> <span class="nc">Strategy</span>
+  </div><div id="lc2">  <span class="kp">attr_accessor</span> <span class="ss">:my_unit</span><span class="p">,</span> <span class="ss">:info</span>
+  </div><div id="lc3">
+  </div><div id="lc4">  <span class="k">def</span> <span class="nf">initialize</span>
+  </div><div id="lc5">    <span class="vi">@my_unit</span> <span class="o">=</span> <span class="no">Unit</span><span class="o">.</span><span class="n">new</span>  <span class="c1"># Это Боб! Поприветствуем его</span>
+  </div><div id="lc6">    <span class="vi">@info</span>    <span class="o">=</span> <span class="no">World</span><span class="o">.</span><span class="n">new</span> <span class="c1"># А это мир, в котором живет Боб</span>
+  </div><div id="lc7">  <span class="k">end</span>
+  </div><div id="lc8">
+  </div><div id="lc9">  <span class="k">def</span> <span class="nf">move</span>
+  </div><div id="lc10">    <span class="vi">@my_unit</span><span class="o">.</span><span class="n">shoot_to</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+  </div><div id="lc11">    <span class="vi">@my_unit</span><span class="o">.</span><span class="n">shoot_to</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+  </div><div id="lc12">  <span class="k">end</span>
+  </div><div id="lc13"><span class="k">end</span>
+  </div></pre></div>
+  И пошло, поехало.
+
+
+  <h2>Свод правил Боба</h2>
+  <ul>
+    <li>Не пытаться разрушить свой любимый мир попытками перейти за пределы карты</li>
+    <li>Не стрелять за пределы карты в попытках попасть в юнитов в других мирах</li>
+    <li>Не делать бессмысленных действий (пройти 0 метров)</li>
+    <li>Не заставлять Великого Обработчика ждать решения слишком долго (больше 1 секунды)</li>
+  </ul>
+<% end %>

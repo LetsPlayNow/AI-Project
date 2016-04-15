@@ -1,0 +1,89 @@
+.short-descr{
+    white-space: pre-line;
+    margin-left: 2%;
+}
+
+#ui li{
+    color: #309cbf;
+}
+.section-content
+{
+    margin-left: 2%;
+}
+
+h1, h2, h3{
+    margin-top: 3%;
+    margin-bottom: 1%;
+}
+
+h4, h5, h6, strong{
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+h2{
+    font-size: 150%;
+}
+
+h3{
+    font-size: 140%;
+}
+
+h4{
+    font-size: 130%;
+}
+
+h5{
+    font-size: 120%;
+}
+
+h6{
+    font-size: 110%;
+}
+
+dt{
+    font-size: 110%;
+    font-weight: 600;
+}
+
+#game-world-picture{
+    margin-left: 2%;
+}
+
+#contents a, #links a{
+    color: #309cbf;
+    font-weight: 600;
+}
+
+strong{
+    display: block;
+    color: #309CBF;
+}
+
+i{
+    color: #DF2D00;
+    font-weight: 500;
+    font-style: normal;
+}
+
+#game-world-measure-units em{
+    font-weight: 600;
+    font-style: normal;
+}
+
+#game-world-objects li{
+    font-weight: 500;
+}
+
+#unit-info h6{
+    font-size: 120%;
+    font-weight: 700;
+    color: #00bfff;
+}
+
+.intro{
+    font-size: 140%;
+    font-weight: 600;
+    margin-bottom: 1%;
+    margin-top: 1%;
+}

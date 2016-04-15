@@ -1,0 +1,18 @@
+<% provide :title, 'Admin'%>
+
+<!-- Head -->
+<% provide :head do %>
+<% end %>
+
+<!-- Body -->
+<% provide :body do %>
+  <div id = "header">
+    <h1>\ <%=link_to 'AI - Project', root_url%> \ Admin Page</h1>
+    <h3 class="slogan">Administrate your own AI!</h3>
+  </div>
+
+  <%= form_tag do%>
+    Game Session Diration: <%= number_field_tag 'game_session_duration', GameSessionsController.get_game_duration %>
+    <%= submit_tag('Update Game Session Duration') %>
+  <% end %>
+<% end %>

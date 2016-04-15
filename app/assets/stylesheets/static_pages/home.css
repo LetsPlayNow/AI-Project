@@ -1,0 +1,96 @@
+body{
+    font-size: 150%;
+}
+
+body #header{
+    height: 15%;
+}
+/* left block */
+#info
+{
+    box-sizing: border-box;
+    font-size: 110%;
+    margin-top: 4%;
+    padding: 0 3% 0 2%;
+    width: 33%;
+    max-width: 33%;
+    height: 80%;
+    max-height: 80%;
+    float: left;
+}
+
+#more-link{
+    box-sizing: border-box;
+    display: block;
+    height: 20%;
+    font-size: 120%;
+    margin-top: 1%;
+}
+
+#logo{
+    width: inherit;
+    height: inherit;
+}
+
+/* Right Block */
+#right-column {
+    float: left;
+    width: 66%;
+    height: 80%;
+}
+
+#controls{
+    height: 10%;
+    margin-bottom: 1%;
+}
+
+#controls form{
+    height: 100%;
+    display: inline-block;
+}
+
+#controls input {
+    height: 100%;
+    font-size: 110%;
+    color: #309CBF;
+}
+
+#controls input[value = "Sign in"]{
+    color: #ff5c00;
+}
+
+#controls input[value = "About"]{
+    color: #0073a6;
+}
+
+
+#description{
+    height: 80%;
+    font-size: 105%;
+    width: 100%;
+}
+
+#media{
+    height: 95%;
+    max-width: 100%;
+}
+
+#logo{
+    max-width: 100%;
+}
+
+#header .slogan{
+    margin: 1% 1% 1% 6%;
+}
+
+a{  color: #309CBF;  }
+
+/* Для очистки потока
+(чтобы элемент с float элементами
+внутри не схлопывался
+body:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+*/

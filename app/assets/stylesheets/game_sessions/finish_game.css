@@ -1,0 +1,58 @@
+#home-link{
+    margin-top: 2%;
+    font-size: 140%;
+    height: 10%;
+    color: orangered;
+    box-sizing: border-box;
+}
+
+#game-results{
+    font-size: 130%;
+    height: 80%;
+    box-sizing: border-box;
+}
+
+.player-info{
+    padding-top: 2%;
+    box-sizing: border-box;
+    height: 50%;
+    width: 50%;
+}
+
+.message{
+    font-size: 200%;
+    color: orangered;
+    padding-top: 2%;
+    float: left;
+    box-sizing: border-box;
+    height: 50%;
+    width: 50%;
+    text-align: left;
+}
+
+
+.prop{
+    color: #007Ca6;
+    float: left;
+    box-sizing: border-box;
+    width: 50%;
+    height: 20%;
+    margin-bottom: 1%;
+    font-weight: 600;
+}
+
+.val{
+    float: left;
+    box-sizing: border-box;
+    width: 50%;
+    height: 20%;
+    display: inline-block;
+    margin-bottom: 1%;
+}
+
+#game-results img{
+    float: left;
+    max-height: 70%;
+    height: 50%;
+    max-width: 50%;
+}

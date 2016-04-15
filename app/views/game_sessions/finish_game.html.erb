@@ -1,0 +1,24 @@
+<% provide :title, 'Finish Game' %>
+<% provide :head do %>
+  <%= stylesheet_link_tag 'game_sessions/finish_game'%>
+<% end %>
+
+<% provide :body do %>
+  <%= render :partial => 'partials/header',
+             :locals => {:page_name => 'Results', :link_address => root_url} %>
+  <%= link_to 'Home', home_url, id: 'home-link' %>
+
+  <div id="game-results">
+    <% @game.users.each do |user| %>
+      <div class="player-info">
+        <div class="prop">Player name: </div>
+        <div class="val"><%= user.name %></div>
+        <%= image_tag('game_sessions/unit.png') %>
+
+        <div class = "Message">
+          <%= @game.winner_id == user.id ? 'Winner!' : 'Nice try' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

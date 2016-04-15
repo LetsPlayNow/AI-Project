@@ -1,0 +1,40 @@
+<% provide :title, 'Last success Simulation'%>
+<% provide :head do %>
+  <%= javascript_include_tag 'jquery', 'lib/pixi', 'visualizer'%>
+  <%= stylesheet_link_tag 'game_sessions/simulation'%>
+<% end %>
+
+<% provide :body do %>
+  <%= render :partial => 'partials/header',
+             :locals => {:page_name => 'Simulation', :link_address => :game_page} %>
+
+  <!-- TODO Раскрывающийся список ошибок-->
+  <div id="right-column">
+    <div id = "controls">
+      <!-- TODO we can do this better -->
+      <input id="game-page-btn" type="button" onclick="window.location.replace('/game_page')" value="Game Page">
+
+      <% unless @game.is_active? %>
+        <input id="finish-game-btn" type="button" onclick="window.location.replace('/finish_game')" value="Finish game">
+      <% end %>
+    </div>
+
+    <%= render :partial => 'partials/errors',
+               :locals => {:errors_type => 'runtime-errors',
+                           error_messages: @simulator_output[:errors]} %>
+  </div>
+
+  <div id = "view">
+    <!--<%= image_tag('game_sessions/squares.gif', id: 'wait-gif')%>-->
+  </div>
+
+  <script>
+    // TODO здесь нужен ненавязчивый JavaScript
+    var background_sprite_url = '<%=image_path('game_sessions/background.jpg')%>';
+    var unit_sprite_url  = '<%=image_path('game_sessions/unit.png') %>';
+    var shell_sprite_url = '<%=image_path('game_sessions/shell_dark.png') %>';
+
+    var view = new View();
+    view.run();
+  </script>
+<% end %>

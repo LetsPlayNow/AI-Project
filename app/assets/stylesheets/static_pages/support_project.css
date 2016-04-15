@@ -1,0 +1,14 @@
+p, #donate-message{
+    padding-left: 1%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    text-indent: 1%;
+}
+
+body{
+    font-size: 110%;
+}
+
+.nowrap{
+    white-space: pre-line;
+}

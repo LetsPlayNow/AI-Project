@@ -1,0 +1,56 @@
+<strong>Unit constants</strong>
+<li>Speed (game-seconds / game-meters)</li>
+<li>Radius (game-meters)</li>
+<li>MaxHP (Max Health Points)</li>
+<li>MaxMP (Max Magic Points)</li>
+<hr>
+<strong>Unit methods</strong>
+<li>go_to(x,y)</li>
+<li>shoot_to(x,y)</li>
+<hr>
+<strong>Shell constants</strong>
+<li>Speed (game-seconds / game-meters)</li>
+<li>Radius (game-meters)</li>
+<li>Damage (how many hp unit loses when shell hits unit)</li>
+<hr>
+<strong>World constants</strong>
+<li>MapSize (one side map's length)</li>
+<li>TactLimit (tact limit)</li>
+<li>ShootCosts (manna costs per shoot)</li>
+<li>EnergyRestoration (manna restoration per step)</li>
+<li>GoToDistanceLimit (limit of complete distance per step)</li>
+<li>ShootDistance (distance between shell and unit when shoot)</li>
+<li>ShellDelay (Delay summoning shell)</li>
+<hr>
+<strong>World methods</strong>
+<li><i>get_enemies(my_id)</i> - returns array of enemy's units</li>
+It needs <i>id</i> of your unit.
+Each enemy has
+<ul>
+  <li><i>id</i> = enemy.id</li>
+  <li><i>location</i> = enemy.location = Struct (Location.new(x, y))</li>
+  <ul>
+    <li>x = enemy.location.x</li>
+    <li>y = enemy.location.y</li>
+  </ul>
+  <li><i>state</i> = enemy.state = Struct (State.new(hp, mp))</li>
+  <ul>
+    <li>health = enemy.state.health</li>
+    <li>energy = enemy.state.energy</li>
+  </ul>
+</ul>
+<li><i>get_shells</i> - returns array of all shells</li>
+Each shell has
+<ul>
+  <li><i>id</i> = shell.id</li>
+  <li><i>location</i> = shell.location = Struct (Location.new(x, y))</li>
+  <ul>
+    <li>x = shell.location.x</li>
+    <li>y = shell.location.y</li>
+  </ul>
+  <li><i>destination</i> = shell.destination = Struct (Location.new(hp, mp))</li>
+  <ul>
+    <li>x_d = shell.destination.x</li>
+    <li>y_d = shell.destination.y</li>
+  </ul>
+</ul>

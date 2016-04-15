@@ -1,0 +1,14 @@
+first_player:
+  name: Alex
+  email: staff@gmail.com
+  password_digest: 123456
+
+second_player:
+  name: Jimm
+  email: staff1@gmail.com
+  password_digest: 123456
+
+third_player:
+  name: Tommy
+  email: staff2@gmail.com
+  password_digest: 123456

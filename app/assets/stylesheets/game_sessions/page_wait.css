@@ -1,0 +1,30 @@
+/* Пусть будет задействовано 60% страницы */
+/* т.к. мало контента */
+/* 10% по умолчанию заняты заголовком*/
+#message{
+    box-sizing: border-box;
+    padding-top: 1%;
+    color: #007ca6;
+    font-weight: 700;
+    font-size: 140%;
+}
+
+#players-count{
+    color: orangered;
+}
+
+#game-status{
+    font-size: 130%;
+    color: #007ca6;
+}
+
+#info{
+    box-sizing: border-box;
+    height:10%;
+}
+
+.animation{
+    margin-left: 0;
+    box-sizing: border-box;
+    height: 50%;
+}

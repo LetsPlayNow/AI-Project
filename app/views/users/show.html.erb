@@ -1,0 +1,32 @@
+<% provide(:title, @user.name) %>
+<% provide :head do %>
+  <%=stylesheet_link_tag 'users/show'%>
+<% end %>
+
+<% provide :body do %>
+  <div id = "header">
+    <h1>\ <%=link_to 'AI - Project', root_url%> \ My page</h1>
+    <h3>Write your own AI!</h3>
+  </div>
+
+  <div id="user-info">
+    <div class="user-property clearfix">
+      <div class="title">Name</div>
+      <div class="property"><%= @user.name %></div>
+    </div>
+
+    <div class="user-property clearfix">
+      <div class="title">Email</div>
+      <div class="property"><%= @user.email %></div>
+    </div>
+
+    <div class="user-property clearfix">
+      <div class="title">Number Of Victories</div>
+      <div class="property"><%= @user.wins_count %></div>
+    </div>
+  </div>
+
+  <footer>
+    <%= link_to 'Home', :root%>
+  </footer>
+<% end %>

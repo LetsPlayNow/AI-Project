@@ -1,0 +1,15 @@
+<% provide :title, 'Errors'%>
+<% provide :head do %>
+  <link href=<%= stylesheet_path("errors.css")%> rel="stylesheet">
+  <% end %>
+
+<% provide :body do %>
+  <div id = "header">
+    <h1>\ <%=link_to 'AI - Project', root_url%> \ This page is a lie</h1>
+    <h3>Write your own AI!</h3>
+  </div>
+
+  <div id="errors">
+    <%= flash[:errors] %> <!--  # TODO заполнить flash[:errors] где нужно -->
+  </div>
+<% end %>
