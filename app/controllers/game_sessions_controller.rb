@@ -91,9 +91,9 @@ class GameSessionsController < ApplicationController
     @user.player.update_attribute(:is_in_game, false)
   end
 
-  # Game Sessions for 1 user
-  # TODO game_page and simulation are on the 1 page
+  # Game Sessions for 1 use
   def demonstration
+    # for 1 times, we can create
     # todo we can simulate one times and after that show user cycled battle animation
   end
 
@@ -109,8 +109,8 @@ class GameSessionsController < ApplicationController
       enough_players || game_is_created
     end
 
-    # Если игра для нас уже создана, переходим на игровую страницу
-    # Если игра для нас не создана, создаем ее
+  # Если игра для нас уже создана, переходим на игровую страницу
+  # Если игра для нас не создана, создаем ее
     def find_or_create_game_session
       @@ids_if_waiting.delete @user.id
       @game = @user.game
@@ -140,11 +140,11 @@ class GameSessionsController < ApplicationController
       end
     end
 
-    # it was a part of finish_game action,
-    # but it caused an interesting behaviour:
-    # @game.users.each doent's work due to  @game was destroyed
-    # but if i did @users = @game.users before that,
-    # finish_game.html.erb searched users in database (not in @users)
+  # it was a part of finish_game action,
+  # but it caused an interesting behaviour:
+  # @game.users.each doent's work due to  @game was destroyed
+  # but if i did @users = @game.users before that,
+  # finish_game.html.erb searched users in database (not in @users)
     def destroy
       if @game.is_empty?
         increment_winner_statistic
@@ -152,8 +152,8 @@ class GameSessionsController < ApplicationController
       end
     end
 
-    # FILTERS
-    # ==================================================================================
+  # FILTERS
+  # ==================================================================================
     def check_signed_in
       @user = current_user
       redirect_to signin_path unless signed_in?
@@ -165,17 +165,17 @@ class GameSessionsController < ApplicationController
       render_404_page if @game.nil?
     end
 
-    # В неактивной игре игроки не имеют права отправлять код
+  # В неактивной игре игроки не имеют права отправлять код
     def check_game_is_active
       head :no_content if !@game.is_active?
     end
 
-    # Нельзя покидать игру до ее завершения
+  # Нельзя покидать игру до ее завершения
     def check_game_is_ended
       head :no_content if @game.is_active?
     end
 
-    # Нужно, чтобы браузер не забывал брать свежие данные о симуляции у сервера (а не лез за ними в хэш)
+  # Нужно, чтобы браузер не забывал брать свежие данные о симуляции у сервера (а не лез за ними в хэш)
     def reset_cache
       response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
       response.headers["Pragma"] = "no-cache"

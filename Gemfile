@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.1'
+ruby '2.2.4'
 group :development, :test do
 	gem 'sqlite3'
   #gem 'turn'

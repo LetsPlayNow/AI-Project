@@ -11,7 +11,7 @@ class GameSession < ActiveRecord::Base
     2
   end
 
-  # Число игроков в игроковй сессии (кроме меня)
+  # пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ)
   def self.other_players_count
     GameSession.players_count - 1
   end
@@ -41,7 +41,6 @@ class GameSession < ActiveRecord::Base
   def time_remaining
     to_end = (end_time - Time.now).round
     (to_end < 0) ? 0 : to_end
-    0
   end
 
   private

@@ -44,3 +44,4 @@
 58) Demonstration action
 59) Better api for Visualizer.js
 Сделать кнопки для повторного проигрывания сражения (можно через событие on_click)
+60) Реализовать @@ids_of_waiting players через таблицу в БД
