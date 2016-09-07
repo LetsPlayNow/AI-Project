@@ -18,12 +18,13 @@ Rails.application.routes.draw do
   get    '/code',             to: 'game_sessions#get_code'
   get    '/simulation',       to: 'game_sessions#simulation'
   get    '/finish_game',      to: 'game_sessions#finish_game'
+  get '/demonstration', to: 'game_sessions#demonstration'
 
   # Users
   resources :users, only: [:new, :create, :show]
 
   # Sessions
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :sessions, only: [:new, :create, :destroy] # fixme do we need this?
   get '/signup',              to: 'users#new'
   get '/signin',              to: 'sessions#new'
   delete '/signout',          to: 'sessions#destroy'

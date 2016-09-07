@@ -3,7 +3,8 @@ class GameSessionsController < ApplicationController
   include GameSessionsHelper::Simulation
 
   before_filter :check_signed_in
-  before_filter :check_has_game,       except: [:start_game, :cancel_waiting]
+  before_filter :check_has_game, except: [:start_game, :cancel_waiting, :demonstration]
+  before_filter :check_has_no_game, only: :demonstration
   before_filter :check_game_is_active, only:    :send_code
   before_filter :check_game_is_ended,  only:    :finish_game
   before_filter :reset_cache,          only:   [:game_page,  :simulation]
@@ -89,11 +90,25 @@ class GameSessionsController < ApplicationController
   # +@game+: current_user.game
   def finish_game
     @user.player.update_attribute(:is_in_game, false)
+    # FIXME но же он ничего не удаляет!
   end
 
-  # Game Sessions for 1 use
+  # Game with fake players
+  # User can easily leave it and start other game
+  # TODO user can't send code when game is finished
   def demonstration
-    # for 1 times, we can create
+    # create game with user and fake user (where to store it's strategy?)
+    @game = GameSession.create
+    @player = Player.create(user_id: @user.id, game_session_id: @game.id)
+    fake_players = []
+    GameSession.other_players_count.times do |i|
+      # TODO we need create module with Strategies samples in lib
+      # TODO store class as file (it will be executable) and read it as string to here
+      code = "class Strategy\n  def initialize\n    @my_unit = Unit.new\n    @info    = World.new\n  end\n\n  def move\n    # Write logic here\n  end\nend"
+      fake_players.append(Player.create(game_session_id: @game.id, code: code))
+    end
+    redirect_to action: :game_page
+    # redirect to game_page
     # todo we can simulate one times and after that show user cycled battle animation
   end
 
@@ -163,6 +178,12 @@ class GameSessionsController < ApplicationController
       @game = @user.game
       flash[:errors] = "This page doesn't exist"
       render_404_page if @game.nil?
+    end
+
+  # Player has game already
+  def check_has_no_game
+    @game = @user.game
+    redirect_to action: :start_game if @game.present?
     end
 
   # В неактивной игре игроки не имеют права отправлять код

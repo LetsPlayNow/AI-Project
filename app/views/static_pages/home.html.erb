@@ -15,7 +15,7 @@
       There are you can write AI with <%=link_to 'Ruby', 'https://www.ruby-lang.org/en/'%>
       and let him fight against AIs of other players.
       AI - Project can give you new knowledge, skills, and a lot of fun!
-      You can get all of it free. Just sign up to start this journey.
+      Just sign up to start this journey.
       Sources available here: ???
     </div>
 
@@ -24,7 +24,7 @@
 
   <div id = "right-column" align="center">
     <div id = "controls">
-      <% if signed_in?%>
+      <% if signed_in? %>
         <%= button_to 'Start game', 'start_game', method: :get%>
         <%= button_to 'Help', 'help', method: :get%>
         <%= button_to 'About', 'about', method: :get%>

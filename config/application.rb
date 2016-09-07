@@ -9,7 +9,9 @@ module AI
     config.serve_static_files = true
     # onfig.eager_load_paths += ["#{Rails.root}/lib/Processing"]
 
-
+    # FIXME it should not work lol
+    # because i using ai-project-folder
+    # TODO move ai-project folder (aka module) to the top level
     simulator_root = Rails.root.join('lib').join('Processing')
     simulator_libs_paths = ['GameObjects', 'Helpers', 'Simulator', 'World']
 

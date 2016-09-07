@@ -100,10 +100,10 @@ function UnitInfo( x, y, name )
         this.health.text = "Health: " + unit.health;
         this.energy.text = "Energy: " + unit.energy;
         this.coordinates.text = "Coord: " + "( " + unit.x + " ; " + unit.y + " )";
-    }
+    };
 
     this.clear = function() {
-        this.health.text = "Health: 0"
+        this.health.text = "Health: 0";
         this.energy.text = "Energy: 0"
     }
 }
@@ -150,7 +150,7 @@ function View() {
     this.run = function()
     {
         load_data(preset_and_process);
-    }
+    };
 
     function preset_and_process()
     {
@@ -306,7 +306,9 @@ function View() {
         // Когда 1 из игроков погиб, его данные тоже нужно обнулить
         function update_units_info() {
             units.forEach(function(unit) {
-                View.units_info[unit.id].update(unit);
+                // FIXME if unit.it == null we have unnecesarry memory allocation for View.units_info
+                if (unit.id != null)
+                    View.units_info[unit.id].update(unit);
             });
         }
 
