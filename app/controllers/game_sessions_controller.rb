@@ -3,8 +3,8 @@ class GameSessionsController < ApplicationController
   include GameSessionsHelper::Simulation
 
   before_filter :check_signed_in
-  before_filter :check_has_game, except: [:start_game, :cancel_waiting, :demonstration]
-  before_filter :check_has_no_game, only: :demonstration
+  before_filter :check_has_game,       except: [:start_game, :cancel_waiting, :demonstration]
+  before_filter :check_has_no_game,    only:    :demonstration
   before_filter :check_game_is_active, only:    :send_code
   before_filter :check_game_is_ended,  only:    :finish_game
   before_filter :reset_cache,          only:   [:game_page,  :simulation]
@@ -16,6 +16,7 @@ class GameSessionsController < ApplicationController
   # Периодически спрашивает, готова ли игра
   # Если игра готова, редирректит на страницу создания / входа игровой сессии
   # +@user+: current_user
+  # TODO split it into 2 methods (create_game, continue_game)
   def start_game
     respond_to do |format|
       if game_ready?
@@ -97,7 +98,9 @@ class GameSessionsController < ApplicationController
   # User can easily leave it and start other game
   # TODO user can't send code when game is finished
   def demonstration
-    # create game with user and fake user (where to store it's strategy?)
+    # TODO create fake user for this player
+    # Maybe constant for User table
+    # Create game with user and fake user (where to store it's strategy?)
     @game = GameSession.create
     @player = Player.create(user_id: @user.id, game_session_id: @game.id)
     fake_players = []
