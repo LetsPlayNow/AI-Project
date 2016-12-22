@@ -35,7 +35,7 @@ class GameSession < ActiveRecord::Base
   end
 
   def is_active?
-    @is_active ||= time_remaining > 0 # TODO test it
+    @is_active = time_remaining > 0
   end
 
   def time_remaining

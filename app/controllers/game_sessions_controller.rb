@@ -5,12 +5,13 @@ class GameSessionsController < ApplicationController
   before_filter :check_signed_in
   before_filter :check_has_game,       except: [:start_game, :cancel_waiting, :demonstration]
   before_filter :check_has_no_game,    only:    :demonstration
-  before_filter :check_game_is_active, only:    :send_code
+  before_filter :check_game_is_active, only: :set_code
   before_filter :check_game_is_ended,  only:    :finish_game
   before_filter :reset_cache,          only:   [:game_page,  :simulation]
   after_action  :destroy,              only:    :finish_game
 
   # Идентификаторы ожидающих игры пользователей
+  # TODO store it in database
   @@ids_if_waiting = Array.new # TODO change to self.ids_of_waiting
 
   # Периодически спрашивает, готова ли игра
@@ -96,6 +97,8 @@ class GameSessionsController < ApplicationController
   def finish_game
     @user.player.update_attribute(:is_in_game, false)
     # FIXME но же он ничего не удаляет!
+    # TODO destroy players
+    # after that destroy game session
   end
 
   # Game with fake players
@@ -195,12 +198,12 @@ class GameSessionsController < ApplicationController
 
   # В неактивной игре игроки не имеют права отправлять код
     def check_game_is_active
-      head :no_content if !@game.is_active?
+      head 500 if !@game.is_active?
     end
 
   # Нельзя покидать игру до ее завершения
     def check_game_is_ended
-      head :no_content if @game.is_active?
+      head 500 if @game.is_active?
     end
 
   # Нужно, чтобы браузер не забывал брать свежие данные о симуляции у сервера (а не лез за ними в хэш)

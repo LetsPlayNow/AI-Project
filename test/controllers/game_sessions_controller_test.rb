@@ -1,139 +1,103 @@
 require 'test_helper'
 
-=begin
-get    '/start_game',       to: 'game_sessions#start_game'
-  get    '/waiting_status',   to: 'game_sessions#start_game'
-  post   '/cancel_waiting',   to: 'game_sessions#cancel_waiting'
-  get    '/game_page',        to: 'game_sessions#game_page'
-  post   '/code',             to: 'game_sessions#set_code'
-  get    '/code',             to: 'game_sessions#get_code'
-  get    '/simulation',       to: 'game_sessions#simulation'
-  get    '/finish_game',      to: 'game_sessions#finish_game'
-  get '/demonstration', to: 'game_sessions#demonstration'
-=end
-
 class GameSessionsControllerTest < ActionController::TestCase
   setup do
     # @game_session = game_sessions(:one)
   end
 
-
-  # Will be saved state between these test methods
-  # Tests for filters
-  test "check signed in" do
-    sign_in User.first # TODO fixture
-    get '/start_game'
-    assert_resonse :success
-    post '/cancel_waiting'
-    assert_response :success
-  end
-
-  # test "check has game" do
-  #   if current_user && current_user.game.nil?
-  #     assert_response :missing
-  #   end
-  # end
-  #
-  # test "check has no game" do
-  #   if current_user && current_user.game.present?
-  #     assert_redirected_to :start_game
-  #   end
-  # end
-  #
-  # test "check_game_is_active" do
-  #
-  # end
-  #
-  # test "check game is active" do
-  #
-  #
-  # end
-  #
-  # test "check_game_is_ended" do
-  #
-  # end
-
-
   test "start game" do
+    # Неавторизованный
     get :start_game
+    assert_response :redirect, "Should get sign_in page"
 
-    # Авторизованный, неавторизованный. TODO Это можно вынести в один тест, в котором лишь это и будет проверяться (для каждого из фильтров по одному)
-    # Есть игра, нет игры
-    # Активная игра или нет
-    # 1 игрок, 2 игрока
+    # Авторизованный
+    user = User.first
+    sign_in(user)
+    get :start_game
+    assert_response :success, "Should get start page"
+
+    # Уже есть игра
+    game = GameSession.create
+    player = Player.create(user_id: user.id, game_session_id: game.id)
+
+    get :start_game
+    assert_redirected_to :game_page, "Should continue game"
   end
 
-  test "waiting_status" do
-
-  end
 
   test "game page" do
-    # Авторизованный, неавторизованный
-    # Есть игра или нет игры
-    # Активная игра или нет
   end
 
-  test "should send code" do
+  test "send code" do
+    user = User.first
+    sign_in(user)
 
+    game = GameSession.create
+    player = Player.create(user_id: user.id, game_session_id: game.id)
+
+    # Отправить корректный код
+    default_code = player.code
+    new_code = "class Strategy \n end"
+    post :set_code, player_code: new_code
+    assert_not_equal(user.player.code, default_code, "Code must be changed")
+
+    # Отправить некорректный код
+    invalid_code = "class"
+    player_code = user.player.code
+    post :set_code, player_code: invalid_code
+    assert_equal(user.player.code, player_code, "Code must not be changed")
+
+    # Игра была завершена
+    finish_game_session(game)
+
+    post :set_code, player_code: new_code
+    assert_response :error
   end
 
-  test "should get code" do
+  test "get code" do
+    user = User.first
+    game = GameSession.create
+    player = Player.create(user_id: user.id, game_session_id: game.id)
 
+    sign_in(user)
+    get :get_code
+    assert_response :success
+
+    assert_equal(@response.body, player.code)
+
+    # Игра была завершена
+    finish_game_session(game)
+    get :get_code
+    assert_response :success
   end
 
-  test "should show simulation" do
-    # Correct code and uncorrect code
-  end
 
   test "finish game" do
-    # Should finish game correctly
+    game = GameSession.create
+    users = [User.first, User.second]
+    players = users.map { |user| Player.create(user_id: user.id, game_session_id: game.id) }
 
+    # Попытка покинуть незавершившуюся игру
+    sign_in(User.first)
+    get :finish_game
+    assert_response :error, "Should not finish game unitl time is not over"
+
+    # Попытка покинуть завершившуюся игру
+    finish_game_session(game)
+
+    get :finish_game
+    assert_response :success, "Successfully finish game"
+
+    get :game_page
+    assert_response :missing, "Game was finished"
   end
 
-  # TODO Is it correct to check many situations in one test?
-  # TODO See how cool guys test their cool apps
+  # TODO add simulator tests here
 
-=begin Tests generated via scaffolding
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:game_sessions)
+
+  private
+  def finish_game_session(game)
+    game.created_at -= GameSession.game_duration
+    game.save
   end
-
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
-  test "should create game_session" do
-    assert_difference('GameSession.count') do
-      post :create, game_session: {  }
-    end
-
-    assert_redirected_to game_session_path(assigns(:game_session))
-  end
-
-  test "should show game_session" do
-    get :show, id: @game_session
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, id: @game_session
-    assert_response :success
-  end
-
-  test "should update game_session" do
-    patch :update, id: @game_session, game_session: {  }
-    assert_redirected_to game_session_path(assigns(:game_session))
-  end
-
-  test "should destroy game_session" do
-    assert_difference('GameSession.count', -1) do
-      delete :destroy, id: @game_session
-    end
-
-    assert_redirected_to game_sessions_path
-  end
-=end
 end
