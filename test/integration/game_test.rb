@@ -49,7 +49,7 @@ class GameTest < ActionDispatch::IntegrationTest
       get '/start_game'
 
       request_count += 1
-      player_will_wait = request_count % GameSession.players_count == 0 # Этот юзер создает сессию
+      player_will_wait = request_count % GameSession.players_count == 0
       if player_will_wait
         assert_redirected_to({controller: :game_sessions, action: :game_page}, "Redirect to game page awaits")
       end
@@ -57,7 +57,7 @@ class GameTest < ActionDispatch::IntegrationTest
   end
 
   test "should save correct code" do
-    previous_code = user.player.code
+    previous_code = @user.player.code
     make_fake_game_with_one_player
     code = "class Strategy\n end"
     post :code
@@ -65,7 +65,7 @@ class GameTest < ActionDispatch::IntegrationTest
   end
 
   test "should not save uncorrect code" do
-    previous_code = user.player.code
+    previous_code = @user.player.code
     make_fake_game_with_one_player
     code = "class Strategy"
     post :code
@@ -76,6 +76,7 @@ class GameTest < ActionDispatch::IntegrationTest
     # add many users to game
     game = make_game
     users = User.all
+    # TODO Not all users should be here
     users.each do |user|
       add_user_to_game(game, user)
     end

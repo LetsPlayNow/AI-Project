@@ -17,6 +17,9 @@ class GameSessionsController < ApplicationController
   # Если игра готова, редирректит на страницу создания / входа игровой сессии
   # +@user+: current_user
   # TODO split it into 2 methods (create_game, continue_game)
+  # TODO game session duration should be modifayable (and has default value)
+  # TODO Тогда ты сможешь без костылей сделать игровую сессию укороченной длины
+  # FIXME is_has_game может быть фильтром для этого экшена, который редиректит на игровую страницу, если игрок уже в игре
   def start_game
     respond_to do |format|
       if game_ready?
@@ -26,6 +29,7 @@ class GameSessionsController < ApplicationController
         format.html { render :start_game and return }
       end
 
+      # TODO вынести это в отдельный экшн
       format.json { render json: { :game_ready => game_ready?, :players_count => @@ids_if_waiting.size }}
     end
   end
@@ -180,7 +184,7 @@ class GameSessionsController < ApplicationController
     def check_has_game
       @game = @user.game
       flash[:errors] = "This page doesn't exist"
-      render_404_page if @game.nil?
+      render_404_page if @game.nil? # TODO maybe redirect to strt_game
     end
 
   # Player has game already
