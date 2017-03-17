@@ -92,7 +92,27 @@ class GameSessionsControllerTest < ActionController::TestCase
     assert_response :missing, "Game was finished"
   end
 
-  # TODO add simulator tests here
+  test "simulation" do
+    game = GameSession.create
+    users = User.first
+
+    players = users.map { |user| Player.create(user_id: user.id, game_session_id: game.id) }
+
+    sign_in(users.first)
+    get :simulation
+    assert_response :success
+
+    finish_game_session(game)
+    get :simulation
+    assert_response :success
+
+    get :finish_game
+    assert_response :success
+
+    # try to get simulation when leaved game
+    get :simulation
+    assert_response :missing # maybe there should be error
+  end
 
 
   private

@@ -14,6 +14,24 @@ var Timer = (
         'use strict';
 
         /*
+         * Polyfill por IE9, IE10 and IE11
+         */
+        var CustomEvent = typeof window !== 'undefined' ? window.CustomEvent : undefined;
+
+        if (typeof window !== 'undefined' && typeof CustomEvent !== "function") {
+            CustomEvent = function (event, params) {
+                params = params || {bubbles: false, cancelable: false, detail: undefined};
+                var evt = document.createEvent('CustomEvent');
+                evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+                return evt;
+            };
+
+            CustomEvent.prototype = window.Event.prototype;
+
+            window.CustomEvent = CustomEvent;
+        }
+
+        /*
          * General functions, variables and constants
          */
         var SECOND_TENTHS_PER_SECOND = 10,
@@ -266,15 +284,19 @@ var Timer = (
             }
 
             function isRegularTimerTargetAchieved() {
-                return counters.hours > target[HOURS_POSITION]
+                return counters.days > target[DAYS_POSITION]
+                    || (counters.days === target[DAYS_POSITION] && (counters.hours > target[MINUTES_POSITION]
                     || (counters.hours === target[HOURS_POSITION] && (counters.minutes > target[MINUTES_POSITION]
-                        || (counters.minutes === target[MINUTES_POSITION]) && counters.seconds >= target[SECONDS_POSITION]));
+                    || (counters.minutes === target[MINUTES_POSITION] && (counters.seconds >= target[SECONDS_POSITION]
+                    || (counters.seconds === target[SECONDS] && counters.secondTenths >= target[SECOND_TENTHS_POSITION])))))));
             }
 
             function isCountdownTimerTargetAchieved() {
-                return counters.hours < target[HOURS_POSITION]
+                return counters.days < target[DAYS_POSITION]
+                    || (counters.days === target[DAYS_POSITION] && (counters.hours < target[HOURS_POSITION]
                     || (counters.hours === target[HOURS_POSITION] && (counters.minutes < target[MINUTES_POSITION]
-                        || (counters.minutes === target[MINUTES_POSITION]) && counters.seconds <= target[SECONDS_POSITION]));
+                    || (counters.minutes === target[MINUTES_POSITION] && (counters.seconds < target[SECONDS_POSITION]
+                    || (counters.seconds === target[SECONDS_POSITION] && (counters.secondTenths <= target[SECOND_TENTHS_POSITION]))))))));
             }
 
             function isTargetAchieved() {
@@ -301,8 +323,12 @@ var Timer = (
                 customCallback = params && typeof params.callback === 'function'? params.callback : function () {};
                 valueToAdd = params && params.countdown === true? -1 : 1;
                 countdown = params && params.countdown == true;
-                if (params && (typeof params.target === 'object')) { setTarget(params.target)};
-                if (params && (typeof params.startValues === 'object')) { setStartValues(params.startValues)};
+                if (params && (typeof params.target === 'object')) {
+                    setTarget(params.target)
+                }
+                if (params && (typeof params.startValues === 'object')) {
+                    setStartValues(params.startValues)
+                }
                 target = target || !countdown? target : [0, 0, 0, 0, 0];
 
                 timerConfig = {
@@ -362,8 +388,8 @@ var Timer = (
                 counters.secondTenths = startValues[SECOND_TENTHS_POSITION];
                 counters.seconds = startValues[SECONDS_POSITION];
                 counters.minutes = startValues[MINUTES_POSITION];
-                counters.hours = startValues[HOURS_POSITION]
-                counters.days = startValues[DAYS_POSITION]
+                counters.hours = startValues[HOURS_POSITION];
+                counters.days = startValues[DAYS_POSITION];
 
                 totalCounters.days = counters.days;
                 totalCounters.hours = totalCounters.days * HOURS_PER_DAY + counters.hours;
@@ -442,11 +468,11 @@ var Timer = (
 
             /**
              * [dispatchEvent dispatchs an event]
-             * @param  {[string]} event [event to dispatch]
+             * @param  {string} event [event to dispatch]
              */
             function dispatchEvent(event) {
                 if (hasDOM()) {
-                    eventEmitter.dispatchEvent(new Event(event));
+                    eventEmitter.dispatchEvent(new CustomEvent(event));
                 } else if (hasEventEmitter()) {
                     eventEmitter.emit(event)
                 }
@@ -474,24 +500,21 @@ var Timer = (
              */
             function getTimeValues() {
                 return counters;
-            };
-
+            }
             /**
              * [getTotalTimeValues returns the counter with the current timer total values]
              * @return {[TimeCounter]}
              */
             function getTotalTimeValues() {
                 return totalCounters;
-            };
-
+            }
             /**
              * [getConfig returns the configuration paramameters]
              * @return {[type]}
              */
             function getConfig () {
                 return timerConfig;
-            };
-
+            }
             /**
              * Public API
              * Definition of Timer instance public functions
@@ -513,13 +536,12 @@ var Timer = (
 
                 this.getConfig = getConfig;
 
-                this.addEventListener = addEventListener
+                this.addEventListener = addEventListener;
 
                 this.removeEventListener = removeEventListener;
             }
 
-        };
-
+        }
         if (module && module.exports) {
             module.exports = Timer;
         } else if (typeof define === 'function' && define.amd) {
