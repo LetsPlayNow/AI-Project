@@ -1,48 +1,48 @@
 <% provide :title, 'Game page'%>
 
 <% provide :head do %>
-  <%= javascript_include_tag 'jquery', 'lib/easytimer', 'game_timer', 'lib/codemirror', 'lib/ruby', 'code_io', 'game_page'%>
-  <%= stylesheet_link_tag 'general', 'game_sessions/game_page', 'game_sessions/mdn-like', 'game_sessions/codemirror'%>
+    <%= javascript_include_tag 'lib/easytimer', 'game_timer', 'lib/codemirror', 'lib/ruby', 'code_io', 'game_page' %>
+    <%= stylesheet_link_tag 'game_sessions/game_page', 'game_sessions/mdn-like', 'game_sessions/codemirror' %>
 <% end %>
 
 <% provide :body do %>
-  <div id="header">
-    <h1>\ <%=link_to 'AI - Project', root_url%> \ Game Page </h1>
-    <h2>Write your own AI!</h2>
-  </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div id="code-window" class="col-lg-7 container">
+          <div class="panel panel-default">
+            <textarea id="code"><%= @user.player.code %></textarea>
+            <%= content_tag(:div, 'Syntax OK', id: 'errors-text', class: 'panel-footer') %>
+          </div>
+        </div>
 
-  <div id = "code-window">
-    <div id = "controls" class="clearfix">
-      <% if @game.is_active? %>
-          <button id="send-code">Send Code & Check Syntax</button>
-      <% end %>
+        <div id="info-panel" class="col-lg-5 container panel panel-default">
+          <div class="row panel-heading">
+            <div id="controls" class="col-lg-6 btn-group-vertical">
+              <% if @game.is_active? %>
+                  <button id="send-code" role="button" class="btn btn-lg btn-primary">Send Code</button>
+              <% end %>
+              <%= link_to "Simulation", 'simulation', class: "btn btn-lg btn-primary", method: :get %>
+            </div>
 
-      <input id="to_simulate" type="button" onclick="window.location.replace('/simulation')" value="Simulation">
+            <div id="info" class="col-lg-6 panel panel-primary">
+              <div class="panel-heading">Nickname:  <%= @user.name %></div>
+              <div class="panel-body">
+                <% unless @game.is_active? %>
+                    <%= render :partial => 'partials/finish_game' %>
+                <% else %>
+                    <%= render :partial => 'partials/timer', :locals => {:time_remaining => @game.time_remaining} %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row panel-body">
+            <div id="game-help" class="well">
+              <%= render partial: 'partials/game_help' %>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <textarea id = "code"><%= @user.player.code %></textarea>
-
-    <%= render :partial => 'partials/errors',
-               :locals => {:errors_type => 'syntax-errors',
-                           error_messages: 'Syntax OK'} %>
-  </div>
-
-  <div id = "info-panel">
-    <div id = "player-info">
-      Nickname:  <%= @user.name %>
-    </div>
-
-    <div id="game-status">
-      <% unless @game.is_active?%>
-        <%= render :partial => 'partials/finish_game'%>
-      <% else %>
-        <%= render :partial => 'partials/timer', :locals => {:time_remaining => @game.time_remaining}%>
-      <% end %>
-    </div>
-
-    <div id="game-help">
-      <%= render partial: 'partials/game_help'%>
-    </div>
-  </div>
 <% end %>
 

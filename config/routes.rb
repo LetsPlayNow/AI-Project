@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   post   '/code',             to: 'game_sessions#set_code'
   get    '/code',             to: 'game_sessions#get_code'
   get    '/simulation',       to: 'game_sessions#simulation'
-  get    '/finish_game',      to: 'game_sessions#finish_game'
+  post '/finish_game', to: 'game_sessions#finish_game'
   get '/demonstration', to: 'game_sessions#demonstration'
 
   # Users

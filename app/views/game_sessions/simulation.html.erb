@@ -5,27 +5,31 @@
 <% end %>
 
 <% provide :body do %>
-  <%= render :partial => 'partials/header',
-             :locals => {:page_name => 'Simulation', :link_address => :game_page} %>
+    <div class="container">
+      <div class="row">
+        <div class="panel btn-group btn-group-justified" role="group" aria-label="...">
+          <div class="btn-group" role="group">
+            <%= button_to 'Go back', 'game_page', class: 'btn btn-default btn-lg', method: :get %>
+          </div>
+          <% unless @game.is_active? %>
+              <div class="btn-group" role="group">
+                <%= button_to 'Finish game', 'finish_game', class: 'btn btn-warning btn-lg' %>
+              </div>
+          <% end %>
 
-  <!-- TODO Раскрывающийся список ошибок-->
-  <div id="right-column">
-    <div id = "controls">
-      <!-- TODO we can do this better -->
-      <input id="game-page-btn" type="button" onclick="window.location.replace('/game_page')" value="Game Page">
-
-      <% unless @game.is_active? %>
-        <input id="finish-game-btn" type="button" onclick="window.location.replace('/finish_game')" value="Finish game">
-      <% end %>
+        </div>
     </div>
 
-    <%= render :partial => 'partials/errors',
-               :locals => {:errors_type => 'runtime-errors',
-                           error_messages: @simulator_output[:errors]} %>
-  </div>
+      <% if @simulator_output[:errors] %>
+          <div class="panel panel-danger">
+            <div class="panel-heading"><strong>Errors in simulation</strong></div>
+            <div class="panel-body"><strong><%= @simulator_output[:errors] %></strong></div>
+          </div>
+      <% end %>
 
-  <div id = "view">
-    <!--<%= image_tag('game_sessions/squares.gif', id: 'wait-gif')%>-->
+      <div id="view" class="row">
+        <!--<%= image_tag('game_sessions/squares.gif', id: 'wait-gif') %>-->
+      </div>
   </div>
 
   <script>

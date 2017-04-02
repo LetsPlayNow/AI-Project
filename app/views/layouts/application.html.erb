@@ -2,22 +2,16 @@
 <html>
     <head>
       <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
 
       <title><%= yield :title%></title>
-      <%= yield :head %>
 
-      <%= stylesheet_link_tag 'general'%>
-      <%= javascript_include_tag 'lib/idea_informer', 'lib/idea_informer_code'%>
+      <%= stylesheet_link_tag 'application' %>
+      <%= javascript_include_tag 'application' %>
+      <%= yield :head %>
     </head>
 
     <body>
+    <%= render partial: 'partials/navbar' %>
       <%= yield :body%>
-
-      <!-- Idea Informer widget -->
-      <noscript>
-        <a href="http://ai-project.idea.informer.com">AI - Project Feedback</a>
-        <a href="http://idea.informer.com"><img src="http://widget.idea.informer.com/tmpl/images/widget_logo.jpg" /></a>
-      </noscript>
     </body>
 </html>

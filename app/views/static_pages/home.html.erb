@@ -1,49 +1,35 @@
 <% provide :title, 'AI-Project'%>
 
 <% provide :head do %>
-  <%= stylesheet_link_tag 'static_pages/home'%>
 <% end %>
 
 <% provide :body do %>
-  <div id = "header">
-    <h1 class="title">\ AI - Project \ Main Page</h1>
-    <h3 class="slogan">Write your own AI!</h3>
-  </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="jumbotron">
+            <h1> AI Project </h1>
+            <p>Write your own AI!</p>
+            <%= link_to 'Start game', 'start_game', class: 'btn btn-success btn-lg btn-block' %>
+          </div>
 
-  <div id = "info">
-    <div id = "description">
-      There are you can write AI with <%=link_to 'Ruby', 'https://www.ruby-lang.org/en/'%>
-      and let him fight against AIs of other players.
-      AI - Project can give you new knowledge, skills, and a lot of fun!
-      Just sign up to start this journey.
-      Sources available here: ???
+          <div class="well well-lg lead">
+            <p>
+              On this site you can write AI using <%= link_to 'Ruby', 'https://www.ruby-lang.org/en/' %> language
+              and let it fight against AIs written by other players
+              AI - Project can give you new knowledge, skills, and a lot of fun!
+              Just sign up to start this journey.
+            <p>
+              <b><%= link_to 'About project', 'about' %></b>
+          </div>
+        </div>
+        <!--TODO gif файл с демкой, где 2 юнита кружатся по квадрату и стреляют в друг друга-->
+        <div class="col-lg-8">
+          <%= image_tag('static_pages/preview.png',
+                        alt: 'Game world of AI - Project',
+                        title: 'AI - Project Logo',
+                        class: 'img-responsive img-thumbnail') %>
+        </div>
+      </div>
     </div>
-
-    <%= link_to 'More information', 'about', id: 'more-link'%>
-  </div>
-
-  <div id = "right-column" align="center">
-    <div id = "controls">
-      <% if signed_in? %>
-        <%= button_to 'Start game', 'start_game', method: :get%>
-        <%= button_to 'Help', 'help', method: :get%>
-        <%= button_to 'About', 'about', method: :get%>
-        <%= button_to 'Profile', current_user, method: :get%>
-        <%= button_to 'Sign Out', signout_path, method: :delete%>
-      <% else %>
-        <%= button_to 'Sign up', signup_path, method: :get%>
-        <%= button_to 'Sign in', signin_path, method: :get%>
-        <%= button_to 'About', 'about', method: :get%>
-        <%= button_to 'Sign in', signin_path, method: :get%>
-        <%= button_to 'Sign up', signup_path, method: :get%>
-      <% end %>
-    </div>
-
-
-    <div id = "media">
-      <%= image_tag('static_pages/preview.png', id: :logo, alt: 'Game world of AI - Project', title: 'AI - Project Logo')%>
-    </div>
-  </div>
-
-  <div style="clear: both"></div>
 <% end %>
