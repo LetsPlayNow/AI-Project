@@ -103,20 +103,14 @@ module AIProject
       def simulate
         output = {}
 
-        begin
-          while @battle_duration <= World_s::TACT_LIMIT && @world_s.units.size >= 2
-            restore_units_energy
-            update_strategies_fields
-            get_move_lists
-            validate_move_lists
-            timing_move_lists
-            simulate_one_step
-            @battle_duration += 1
-          end
-
-          rescue Exception => e
-          output[:is_ok]  = false
-          output[:errors] = e.message
+        while @battle_duration <= World_s::TACT_LIMIT && @world_s.units.size >= 2
+          restore_units_energy
+          update_strategies_fields
+          get_move_lists
+          validate_move_lists
+          timing_move_lists
+          simulate_one_step
+          @battle_duration += 1
         end
 
         output[:options] = get_world_options

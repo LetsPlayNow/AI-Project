@@ -170,6 +170,9 @@ function View() {
                 throw new Error("Can't load simulation data");
             })
             .done(function (data) {
+                if (data['errors'] != null)
+                    return;
+
                 console.log(data);
                 View.s_data = data;
                 load_textures();

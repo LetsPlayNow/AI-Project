@@ -78,8 +78,14 @@ class GameSessionsController < ApplicationController
     @game.players(true).each { |player| codes[player.user_id] = player.code }
 
     remove_previous_strategies_definitions
-    @simulator_output = AIProject::Simulator.new(codes).simulate # fixme как квариант, можно хранить симулятор в переменной и делать refresh
-    if @simulator_output[:is_ok]
+    begin
+      # fixme как квариант, можно хранить симулятор в переменной и делать refresh
+      @simulator_output = AIProject::Simulator.new(codes).simulate
+    rescue RuntimeError, NameError => e
+      @simulator_output = {errors: e.message}
+    end
+
+    if @simulator_output[:errors].nil?
       @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
     end
     add_players_info_in @simulator_output
