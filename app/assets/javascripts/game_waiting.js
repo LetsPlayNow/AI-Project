@@ -18,6 +18,7 @@ function cancel_waiting() {
 
 function preset_game_waiting()
 {
+    update_game_status(); // first request
     var period_request = 3000; // Fixme hardcored thing
     var wait_interval  = setInterval(update_game_status, period_request);
     window.onbeforeunload = cancel_waiting;

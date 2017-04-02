@@ -1,7 +1,7 @@
 <!--TODO bigger navbar-->
 <div class="navbar navbar-default">
   <div class="navbar-header">
-    <a class="navbar-brand" href="#">AI - Project</a>
+    <%= link_to 'AI - Project', root_url, class: 'navbar-brand' %>
   </div>
 
   <div class="container-fluid">
@@ -14,7 +14,6 @@
       <% if signed_in? %>
           <li><%= link_to 'Profile', current_user %></li>
           <li><%= link_to 'Sign Out', signout_path, method: :delete %></li>
-
       <% else %>
           <li><%= link_to 'Sign up', signup_path %></li>
           <li><%= link_to 'Login', signin_path %></li>

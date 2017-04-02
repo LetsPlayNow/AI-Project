@@ -6,18 +6,17 @@
 <% end %>
 
 <% provide :body do %>
-  <%= render :partial => 'partials/header',
-             :locals => {:page_name => 'Wait Game', :link_address => root_url} %>
+    <div class="container-fluid">
+      <div id="info" class="alert alert-info">
+        <div id="message">
+          <h1>Please, wait. Your game will start as soon as possible.</h1>
+        </div>
 
-  <div id="info">
-    <div id = "message">
-      Please, wait. Your game will start as soon as possible.
+        <h3 id='game-status'>
+          How many players are waiting: <span class="text-danger" id='players-count'></span>
+        </h3>
+      </div>
+
+      <%= image_tag 'game_sessions/squares.gif', id: 'progress-pie', class: 'img-responsive center-block' %>
     </div>
-
-    <div id = 'game-status'>
-      How many players waiting: <span id = 'players-count'></span>
-    </div>
-  </div>
-
-  <%= image_tag('game_sessions/squares.gif', class: 'animation')%>
 <% end %>

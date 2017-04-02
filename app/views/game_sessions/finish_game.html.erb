@@ -5,20 +5,36 @@
 
 <% provide :body do %>
     <div class="container">
-      <%= link_to 'Home', home_url, id: 'home-link' %>
+      <%= link_to 'Home', home_url, id: 'home-link', class: 'btn btn-primary btn-lg' %>
+
+      <%= content_tag :div, class: 'alert alert-info' do |tag| %>
+          <% if current_user.id == @game.winner_id %>
+              Nice try!
+          <% else %>
+              You are a winner! Congratulations!
+          <% end %>
+      <% end %>
 
       <div id="game-results">
-        <% @game.users.each do |user| %>
-            <div class="player-info">
-              <div class="prop">Player name:</div>
-              <div class="val"><%= user.name %></div>
-              <%= image_tag('game_sessions/unit.png') %>
+        <table class="table table-hover">
+          <tr>
+            <th>Nickname</th>
+            <th>Avatar</th>
+            <th>Is winner</th>
+          </tr>
 
-              <div class="Message">
-                <%= @game.winner_id == user.id ? 'Winner!' : 'Nice try' %>
-              </div>
-        </div>
-        <% end %>
+          <% @game.users.each do |user| %>
+              <tr>
+                <th><%= user.name %></th>
+                <th><%= image_tag('game_sessions/unit.png') %></th>
+                <th>
+                  <%= if @game.winner_id == user.id %>
+                      <span class="glyphicon glyphicon-star-empty"></span>
+                  <% end %>
+                </th>
+              </tr>
+          <% end %>
+        </table>
       </div>
     </div>
 <% end %>
