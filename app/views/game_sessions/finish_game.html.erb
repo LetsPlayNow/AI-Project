@@ -5,7 +5,7 @@
 
 <% provide :body do %>
     <div class="container">
-      <%= link_to 'Home', home_url, id: 'home-link', class: 'btn btn-primary btn-lg' %>
+      <h3><%= link_to 'To home page', home_url, id: 'home-link' %></h3>
 
       <%= content_tag :div, class: 'alert alert-info' do |tag| %>
           <% if current_user.id == @game.winner_id %>
@@ -28,7 +28,7 @@
                 <th><%= user.name %></th>
                 <th><%= image_tag('game_sessions/unit.png') %></th>
                 <th>
-                  <%= if @game.winner_id == user.id %>
+                  <% if @game.winner_id == user.id %>
                       <span class="glyphicon glyphicon-star-empty"></span>
                   <% end %>
                 </th>

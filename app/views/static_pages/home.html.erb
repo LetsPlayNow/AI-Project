@@ -1,6 +1,7 @@
 <% provide :title, 'AI-Project'%>
 
 <% provide :head do %>
+    <%= stylesheet_link_tag 'static_pages/home' %>
 <% end %>
 
 <% provide :body do %>
@@ -12,7 +13,17 @@
             <p>Write your own AI!</p>
             <%= link_to 'Start game', 'start_game', class: 'btn btn-primary btn-lg btn-block' %>
           </div>
-
+        </div>
+        <!--TODO gif файл с демкой, где 2 юнита кружатся по квадрату и стреляют в друг друга-->
+        <div class="col-lg-8">
+          <%= image_tag('static_pages/preview.png',
+                        alt: 'Game world of AI - Project',
+                        title: 'AI - Project Logo',
+                        class: 'img-responsive img-thumbnail') %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
           <div class="well well-lg lead">
             <p>
               On this site you can write AI using <%= link_to 'Ruby', 'https://www.ruby-lang.org/en/' %> language
@@ -23,12 +34,21 @@
               <b><%= link_to 'About project', 'about' %></b>
           </div>
         </div>
-        <!--TODO gif файл с демкой, где 2 юнита кружатся по квадрату и стреляют в друг друга-->
         <div class="col-lg-8">
-          <%= image_tag('static_pages/preview.png',
-                        alt: 'Game world of AI - Project',
-                        title: 'AI - Project Logo',
-                        class: 'img-responsive img-thumbnail') %>
+          <div class="well well-lg lead">
+            Important links
+            <ul>
+              <li>Link 1</li>
+              <li>Link 2</li>
+              <li>Link 3</li>
+              <li>Link 2</li>
+              <li>Link 3</li>
+              <li>Link 2</li>
+              <li>Link 3</li>
+            </ul>
+
+            <button id="my_btn"><span class="glyphicon glyphicon-star-empty"></span> button</button>
+          </div>
         </div>
       </div>
     </div>

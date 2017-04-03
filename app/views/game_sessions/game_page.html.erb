@@ -19,16 +19,18 @@
           <div class="row panel-heading">
             <div id="controls" class="col-lg-6 btn-group-vertical">
               <% if @game.is_active? %>
-                  <button id="send-code" role="button" class="btn btn-lg btn-primary">Send Code</button>
+                  <button id="send-code" role="button" class="btn btn-lg btn-info">Send Code</button>
               <% end %>
-              <%= link_to "Simulation", 'simulation', class: "btn btn-lg btn-primary", method: :get %>
+              <%= link_to "Simulation", 'simulation', class: "btn btn-lg btn-info", method: :get %>
             </div>
 
-            <div id="info" class="col-lg-6 panel panel-primary">
+            <div id="info" class="col-lg-6 panel panel-info">
               <div class="panel-heading">Nickname:  <%= @user.name %></div>
               <div class="panel-body">
                 <% unless @game.is_active? %>
-                    <%= render :partial => 'partials/finish_game' %>
+                    <%= button_to 'Finish game', :finish_game,
+                                  :id => 'finish-game-btn',
+                                  :method => :post, class: 'btn btn-warning btn-block' %>
                 <% else %>
                     <%= render :partial => 'partials/timer', :locals => {:time_remaining => @game.time_remaining} %>
                 <% end %>

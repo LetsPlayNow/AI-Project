@@ -5,4 +5,6 @@ function preset_page()
     // TODO periodically autosave player's code
 }
 
-$( preset_page );
+$(preset_page);
+// fixme i don't know why but it isn't working when clicking link (start game > game_page)
+// fixme these styles just dissapeared
