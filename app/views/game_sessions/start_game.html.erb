@@ -6,18 +6,11 @@
 <% end %>
 
 <% provide :body do %>
-    <div class="container-fluid">
-      <div id="info" class="alert alert-info">
-        <div id="message">
-          <h1>Please, wait. Your game will start as soon as possible.</h1>
-        </div>
-
-        <h3 id='game-status'>
-          How many players are waiting: <span class="text-danger" id='players-count'></span>
-        </h3>
-      </div>
-
-      <!--fixme cube is so small when home > wait_page and scripts are not loading-->
-      <%= image_tag 'game_sessions/squares.gif', id: 'progress-pie', class: 'img-responsive center-block' %>
+    <div id="message">
+      Please, wait. Your game will start as soon as possible.
     </div>
+    <div id='game-status'>
+      How many players are waiting: <span class="text-danger" id='players-count'></span>
+    </div>
+    <%= image_tag 'game_sessions/squares.gif', id: 'progress-pie' %>
 <% end %>

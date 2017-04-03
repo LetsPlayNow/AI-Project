@@ -5,32 +5,23 @@
 <% end %>
 
 <% provide :body do %>
-    <div class="container">
-      <div class="row">
-        <div class="panel btn-group btn-group-justified" role="group" aria-label="...">
-          <div class="btn-group" role="group">
-            <%= button_to 'Go back', 'game_page', class: 'btn btn-info btn-lg', method: :get %>
-          </div>
-          <% unless @game.is_active? %>
-              <div class="btn-group" role="group">
-                <%= button_to 'Finish game', 'finish_game', class: 'btn btn-warning btn-lg' %>
-              </div>
-          <% end %>
-
-        </div>
+    <div id="controls">
+      <%= button_to 'Go back', 'game_page', class: 'btn btn-info btn-lg', method: :get %>
+      <% unless @game.is_active? %>
+          <%= button_to 'Finish game', 'finish_game', class: 'btn btn-warning btn-lg' %>
+      <% end %>
     </div>
 
-      <% if @simulator_output[:errors] %>
-          <div class="panel panel-danger">
-            <div class="panel-heading"><strong>Errors in simulation</strong></div>
-            <div class="panel-body"><strong><%= @simulator_output[:errors] %></strong></div>
-          </div>
-      <% end %>
-
-      <div id="view" class="row">
-        <!--<%= image_tag('game_sessions/squares.gif', id: 'wait-gif') %>-->
+    <% if @simulator_output[:errors] %>
+        <div id="errors">
+          <div class="errors-heading"><strong>Errors in simulation</strong></div>
+          <div class="errors-text"><strong><%= @simulator_output[:errors] %></strong></div>
       </div>
-  </div>
+    <% end %>
+
+    <div id="view" class="row">
+      <%= image_tag('game_sessions/squares.gif', id: 'wait-gif') %>
+    </div>
 
   <script>
     // TODO здесь нужен ненавязчивый JavaScript

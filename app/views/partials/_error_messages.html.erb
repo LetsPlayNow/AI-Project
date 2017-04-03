@@ -1,4 +1,4 @@
-<% if @user.errors.any? %> <!-- Необходимо сделать универсальный партиал, принимающий сообщения об ошибках -->
+<% if @user.errors.any? %>
     <div id="errors">
       <div class="errors-header">
         The form contains <%= pluralize(@user.errors.count, "error") %>.

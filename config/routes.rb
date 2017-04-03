@@ -10,15 +10,15 @@ Rails.application.routes.draw do
   #get '/funny_tutorial',     to: 'static_pages#funny_tutorial'
 
   # GameSessions
-  get    '/start_game',       to: 'game_sessions#start_game'
+  get '/start_game', to: 'game_sessions#start_game', as: :start_game
   get    '/waiting_status',   to: 'game_sessions#start_game'
   post   '/cancel_waiting',   to: 'game_sessions#cancel_waiting'
-  get    '/game_page',        to: 'game_sessions#game_page'
+  get '/game_page', to: 'game_sessions#game_page', as: :game_page
   post   '/code',             to: 'game_sessions#set_code'
   get    '/code',             to: 'game_sessions#get_code'
-  get    '/simulation',       to: 'game_sessions#simulation'
-  post '/finish_game', to: 'game_sessions#finish_game'
-  get '/demonstration', to: 'game_sessions#demonstration'
+  get '/simulation', to: 'game_sessions#simulation', as: :simulation
+  post '/finish_game', to: 'game_sessions#finish_game', as: :finish_game
+  get '/demonstration', to: 'game_sessions#demonstration', as: :demonstration
 
   # Users
   resources :users, only: [:new, :create, :show]

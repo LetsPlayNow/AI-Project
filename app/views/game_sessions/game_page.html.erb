@@ -6,44 +6,34 @@
 <% end %>
 
 <% provide :body do %>
-    <div class="container-fluid">
-      <div class="row">
-        <div id="code-window" class="col-lg-7 container">
-          <div class="panel panel-default">
-            <textarea id="code"><%= @user.player.code %></textarea>
-            <%= content_tag(:div, 'Syntax OK', id: 'errors-text', class: 'panel-footer') %>
-          </div>
-        </div>
+    <div id="code-window">
+      <textarea id="code"><%= @user.player.code %></textarea>
 
-        <div id="info-panel" class="col-lg-5 container panel panel-default">
-          <div class="row panel-heading">
-            <div id="controls" class="col-lg-6 btn-group-vertical">
-              <% if @game.is_active? %>
-                  <button id="send-code" role="button" class="btn btn-lg btn-info">Send Code</button>
-              <% end %>
-              <%= link_to "Simulation", 'simulation', class: "btn btn-lg btn-info", method: :get %>
-            </div>
+      <div id="errors-window">
+        <div id="errors-header">Errors:</div>
+        <div id="errors-text">Syntax OK</div>
+      </div>
+    </div>
 
-            <div id="info" class="col-lg-6 panel panel-info">
-              <div class="panel-heading">Nickname:  <%= @user.name %></div>
-              <div class="panel-body">
-                <% unless @game.is_active? %>
-                    <%= button_to 'Finish game', :finish_game,
-                                  :id => 'finish-game-btn',
-                                  :method => :post, class: 'btn btn-warning btn-block' %>
-                <% else %>
-                    <%= render :partial => 'partials/timer', :locals => {:time_remaining => @game.time_remaining} %>
-                <% end %>
-              </div>
-            </div>
-          </div>
+    <div id="info-panel">
+      <div id="controls">
+        <% if @game.is_active? %>
+            <button id="send-code">Send Code</button>
+        <% end %>
+        <%= link_to "Simulation", simulation_path %>
 
-          <div class="row panel-body">
-            <div id="game-help" class="well">
-              <%= render partial: 'partials/game_help' %>
-            </div>
-          </div>
-        </div>
+        Nickname:  <%= @user.name %>
+        <% if not @game.is_active? %>
+            <%= render :partial => 'partials/timer',
+                       :locals => {:time_remaining => @game.time_remaining} %>
+        <% else %>
+            <%= button_to 'Finish game', finish_game_path,
+                          :id => 'btn-finish-game', :method => :post %>
+        <% end %>
+      </div>
+
+      <div id="game-help" class="well">
+        <%= render partial: 'partials/game_help' %>
       </div>
     </div>
 <% end %>

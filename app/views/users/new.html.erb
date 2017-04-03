@@ -3,21 +3,16 @@
   <%= stylesheet_link_tag 'users/new' %>
   <% end %>
 <% provide :body do %>
-  <div id = "header">
-    <h1>\ <%=link_to 'AI - Project', root_url%> \ Sign Up</h1>
-    <h3>Write your own AI!</h3>
-  </div>
-
   <%= render 'partials/error_messages'%>
 
   <%= form_for(@user) do |f|%>
-      <%= f.label :name%>
+        <%= f.label :name, "Name" %>
       <%= f.text_field :name%>
 
-      <%= f.label :email%>
+        <%= f.label :email, "Email" %>
       <%= f.text_field :email%>
 
-      <%= f.label :password%>
+        <%= f.label :password, "Password" %>
       <%= f.password_field :password%>
 
       <%= f.label :password_confirmation, 'Confirmation'%>

@@ -25,6 +25,9 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sass-rails', '>= 3.2'
 
 gem 'sprockets-rails', '2.3.3'
+
+gem 'markdown-rails'
+
 # group :production do
 #   gem 'pg', '0.18.2'
 #   gem 'rails_12factor'

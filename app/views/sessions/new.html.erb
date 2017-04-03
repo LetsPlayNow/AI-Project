@@ -4,29 +4,21 @@
 <% end %>
 
 <% provide :body do%>
-  <div id = "header">
-    <h1>\ <%=link_to 'AI - Project', root_url%> \ Sign In</h1>
-    <h3>Write your own AI!</h3>
-  </div>
-
-  <div id="form">
-    <%= flash[:error]%>
+    <%= flash[:error] %>
     <%= form_for(:session, url: sessions_path) do |f| %>
 
-      <div id="email">
-        <%= f.label :email %>
-        <%= f.text_field :email%>
-      </div>
+        <div id="email">
+          <%= f.label :email %>
+          <%= f.text_field :email %>
+        </div>
 
-      <div id="password">
-        <%= f.label :password %>
-        <%= f.password_field :password%>
-      </div>
+        <div id="password">
+          <%= f.label :password %>
+          <%= f.password_field :password %>
+        </div>
 
-      <%= f.submit "Sign in", class: 'sumbit-btn'%>
+        <%= f.submit "Sign in", class: 'sumbit-btn' %>
     <% end %>
 
     <p>New user? <%= link_to "Sign up now!", signup_path %></p>
-  </div>
-
 <% end %>
