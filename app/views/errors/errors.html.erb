@@ -1,0 +1,15 @@
+<% provide :title, 'Errors' %>
+<% provide :head do %>
+    <%= stylesheet_link_tag 'errors.html.erb' %>
+<% end %>
+
+<% provide :body do %>
+    <div id="message">
+      <div id="slogan">This page is a lie</div>
+      <div id="errors"><%= flash[:errors] %></div>
+    </div>
+
+    <div id="media">
+
+    </div>
+<% end %>

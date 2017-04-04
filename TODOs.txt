@@ -1,8 +1,6 @@
-﻿1) Сделать кнопку HOME на странице finish_game больше и заметнее
-2) Добавить сжатие для JS и CSS
+﻿2) Добавить сжатие для JS и CSS
 3) Переписать User
   1 вариант - регистрация по 1 лишь email
-  2 вариант - Device
 4) Дописать о геттерах и принципах работы с ними в help
 5) FICHA: Добавить уничтожаемость снарядов при столкновении
 6)Пока грузится JSON, нужно поставить заставку на странице simulation
@@ -35,7 +33,6 @@
 46) 3D console
 47) Удалить ненужные индексы в таблице
 49) Есть ли разница между /game_page/ и /game_page и /game_page? (easy)
-50) Нужны тесты (medium)
 51) Использовать Set вместо Array в GameSessionController как массив ид игроков - хорошо
 52) Переписать таймер с использованием сторонней библиотеки (99%)
 
@@ -45,45 +42,3 @@
 Сделать кнопки для повторного проигрывания сражения (можно через событие on_click)
 60) Реализовать @@ids_of_waiting players через таблицу в БД
 61) Сделать демонстрацию доступной без регистрации
-62) Отрефакторить CSS & HTML
- -> Не пихать странное туда (input'ы вместо кнопок и т.д.)
-63) Написать тесты! Без них никуда!
-Вручную тестровать все после каждого изменения?
-Да ты свихнулся!
-
-Devise todo
-Some setup you must do manually if you haven't yet:
-
-  1. Ensure you have defined default url options in your environments files. Here
-     is an example of default_url_options appropriate for a development environment
-     in config/environments/development.rb:
-
-       config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-
-     In production, :host should be set to the actual host of your application.
-
-  2. Ensure you have defined root_url to *something* in your config/routes.rb.
-     For example:
-
-       root to: "home#index"
-
-  3. Ensure you have flash messages in app/views/layouts/application.html.erb.
-     For example:
-
-       <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
-
-  4. You can copy Devise views (for customization) to your app by running:
-
-       rails g devise:views
-
-  def self.up
-    create_table "users", force: :cascade do |t|
-      t.string   "name"
-      t.string   "email"
-      t.datetime "created_at",                  null: false
-      t.datetime "updated_at",                  null: false
-      t.string   "password_digest"
-      t.string   "remember_token"
-      t.integer  "wins_count",      default: 0
-    end

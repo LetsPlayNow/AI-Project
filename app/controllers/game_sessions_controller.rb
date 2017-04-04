@@ -192,30 +192,30 @@ class GameSessionsController < ApplicationController
 
     def check_has_game
       @game = @user.game
-      flash[:errors] = "This page doesn't exist"
-      render_404_page if @game.nil? # TODO maybe redirect to strt_game
+
+      not_found
     end
 
   # Player has game already
   def check_has_no_game
     @game = @user.game
     redirect_to action: :start_game if @game.present?
-    end
+  end
 
   # В неактивной игре игроки не имеют права отправлять код
-    def check_game_is_active
-      head 500 if !@game.is_active?
-    end
+  def check_game_is_active
+    head 500 if !@game.is_active?
+  end
 
   # Нельзя покидать игру до ее завершения
-    def check_game_is_ended
-      head 500 if @game.is_active?
-    end
+  def check_game_is_ended
+    head 500 if @game.is_active?
+  end
 
   # Нужно, чтобы браузер не забывал брать свежие данные о симуляции у сервера (а не лез за ними в хэш)
-    def reset_cache
-      response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
-      response.headers["Pragma"] = "no-cache"
-      response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
-    end
+  def reset_cache
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  end
 end
