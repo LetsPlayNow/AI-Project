@@ -1,0 +1,17 @@
+@import "bootstrap";
+
+#message {
+  @extend .jumbotron, .col-lg-6;
+}
+
+#home-link {
+  @extend .btn, .btn-default, .btn-lg;
+}
+
+#media {
+  @extend .col-lg-6;
+}
+
+#cake-lie {
+  @extend .img-responsive;
+}

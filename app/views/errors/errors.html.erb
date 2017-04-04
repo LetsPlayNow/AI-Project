@@ -1,15 +1,18 @@
 <% provide :title, 'Errors' %>
 <% provide :head do %>
-    <%= stylesheet_link_tag 'errors.html.erb' %>
+    <%= stylesheet_link_tag 'errors' %>
 <% end %>
 
 <% provide :body do %>
     <div id="message">
-      <div id="slogan">This page is a lie</div>
-      <div id="errors"><%= flash[:errors] %></div>
+      <h1 id="slogan">This page is a lie</h1>
+      <h2 id="errors"><%= flash[:errors] %></h2>
+      <%= link_to "Go home", root_path, id: 'home-link' %>
     </div>
 
-    <div id="media">
 
+
+    <div id="media">
+      <%= image_tag 'errors/cake_is_a_lie.jpg', id: 'cake-lie' %>
     </div>
 <% end %>

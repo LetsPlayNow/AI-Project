@@ -20,4 +20,6 @@ Rails.application.routes.draw do
   get '/simulation', to: 'game_sessions#simulation', as: :simulation
   post '/finish_game', to: 'game_sessions#finish_game', as: :finish_game
   get '/demonstration', to: 'game_sessions#demonstration', as: :demonstration
+  get '/404', to: 'application#render_404'
+
 end
