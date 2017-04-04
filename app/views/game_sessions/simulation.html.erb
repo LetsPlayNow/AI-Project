@@ -6,9 +6,9 @@
 
 <% provide :body do %>
     <div id="controls">
-      <%= button_to 'Go back', 'game_page', class: 'btn btn-info btn-lg', method: :get %>
+      <%= link_to 'Go back', 'game_page', method: :get %>
       <% unless @game.is_active? %>
-          <%= button_to 'Finish game', 'finish_game', class: 'btn btn-warning btn-lg' %>
+          <%= button_to 'Finish game', 'finish_game' %>
       <% end %>
     </div>
 
@@ -19,17 +19,11 @@
       </div>
     <% end %>
 
-    <div id="view" class="row">
-      <%= image_tag('game_sessions/squares.gif', id: 'wait-gif') %>
+    <div id="view">
     </div>
 
-  <script>
-    // TODO здесь нужен ненавязчивый JavaScript
-    var background_sprite_url = '<%=image_path('game_sessions/background.jpg')%>';
-    var unit_sprite_url  = '<%=image_path('game_sessions/unit.png') %>';
-    var shell_sprite_url = '<%=image_path('game_sessions/shell_dark.png') %>';
-
-    var view = new View();
-    view.run();
-  </script>
+    <%= content_tag(:div, nil, id: "visualizer-info", style: 'display: none;',
+                    data: {background_sprite: image_path('game_sessions/background.jpg'),
+                           unit_sprite: image_path('game_sessions/unit.png'),
+                           shell_sprite: image_path('game_sessions/shell_dark.png')}) %>
 <% end %>

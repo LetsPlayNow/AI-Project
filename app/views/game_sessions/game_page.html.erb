@@ -20,10 +20,10 @@
         <% if @game.is_active? %>
             <button id="send-code">Send Code</button>
         <% end %>
-        <%= link_to "Simulation", simulation_path %>
+        <%= link_to "Simulation", simulation_path, method: :get %>
 
         Nickname:  <%= @user.name %>
-        <% if not @game.is_active? %>
+        <% if @game.is_active? %>
             <%= render :partial => 'partials/timer',
                        :locals => {:time_remaining => @game.time_remaining} %>
         <% else %>
@@ -32,7 +32,7 @@
         <% end %>
       </div>
 
-      <div id="game-help" class="well">
+      <div id="game-help">
         <%= render partial: 'partials/game_help' %>
       </div>
     </div>

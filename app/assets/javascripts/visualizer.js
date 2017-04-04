@@ -170,8 +170,11 @@ function View() {
                 throw new Error("Can't load simulation data");
             })
             .done(function (data) {
-                if (data['errors'] != null)
+                if (data['errors'] != null) {
+                    console.log("Errors in simulation");
+                    console.log(data['errors']);
                     return;
+                }
 
                 console.log(data);
                 View.s_data = data;
@@ -179,10 +182,11 @@ function View() {
             });
 
         function load_textures() {
+            var sprites_info = $('#visualizer-info').data();
             PIXI.loader
-                .add('background',background_sprite_url)
-                .add('unit', unit_sprite_url)
-                .add('shell', shell_sprite_url)
+                .add('background', sprites_info['backgroundSprite'])
+                .add('unit', sprites_info['unitSprite'])
+                .add('shell', sprites_info['shellSprite'])
                 .load(function (loader, resources) {
                     console.log(resources);
                     Background.texture = resources.background.texture;
@@ -325,3 +329,7 @@ function View() {
         update_units_info();
     }
 }
+
+
+var view = new View();
+$(view.run());

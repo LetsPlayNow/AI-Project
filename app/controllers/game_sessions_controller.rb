@@ -187,7 +187,7 @@ class GameSessionsController < ApplicationController
   # ==================================================================================
     def check_signed_in
       @user = current_user
-      redirect_to signin_path unless signed_in?
+      redirect_to new_user_session_path unless signed_in?
     end
 
     def check_has_game

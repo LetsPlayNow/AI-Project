@@ -1621,9 +1621,8 @@ process.umask = function() { return 0; };
 },{}],4:[function(require,module,exports){
 (function (global){
 /*! https://mths.be/punycode v1.3.2 by @mathias */
-;(function(root) {
-
-	/** Detect free variables */
+    (function (root) {
+        /** Detect free variables */
 	var freeExports = typeof exports == 'object' && exports &&
 		!exports.nodeType && exports;
 	var freeModule = typeof module == 'object' && module &&
@@ -20381,7 +20380,7 @@ Object.defineProperties(TilingSprite.prototype, {
 
 TilingSprite.prototype._onTextureUpdate = function ()
 {
-    return;
+
 };
 
 
@@ -26631,7 +26630,7 @@ if (!global.cancelAnimationFrame) {
     async.auto = function (tasks, callback) {
         callback = callback || function () {};
         var keys = _keys(tasks);
-        var remainingTasks = keys.length
+        var remainingTasks = keys.length;
         if (!remainingTasks) {
             return callback();
         }
@@ -26651,7 +26650,7 @@ if (!global.cancelAnimationFrame) {
             }
         };
         var taskComplete = function () {
-            remainingTasks--
+            remainingTasks--;
             _each(listeners.slice(0), function (fn) {
                 fn();
             });
@@ -26736,7 +26735,7 @@ if (!global.cancelAnimationFrame) {
                 data = data[data.length - 1];
                 (wrappedCallback || callback)(data.err, data.result);
             });
-        }
+        };
         // If a callback is passed, run this as a controll flow
         return callback ? wrappedTask() : wrappedTask
     };
@@ -27048,8 +27047,7 @@ if (!global.cancelAnimationFrame) {
         
         function _compareTasks(a, b){
           return a.priority - b.priority;
-        };
-        
+        }
         function _binarySearch(sequence, item, compare) {
           var beg = -1,
               end = sequence.length - 1;
@@ -29022,6 +29020,3 @@ module.exports = function () {
 
 },{"../../Resource":131,"../../b64":132}]},{},[108])(108)
 });
-
-
-//# sourceMappingURL=pixi.js.map

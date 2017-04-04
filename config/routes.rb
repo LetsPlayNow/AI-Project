@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   root to: 'static_pages#home'
 
   # Static pages
@@ -19,13 +20,4 @@ Rails.application.routes.draw do
   get '/simulation', to: 'game_sessions#simulation', as: :simulation
   post '/finish_game', to: 'game_sessions#finish_game', as: :finish_game
   get '/demonstration', to: 'game_sessions#demonstration', as: :demonstration
-
-  # Users
-  resources :users, only: [:new, :create, :show]
-
-  # Sessions
-  resources :sessions, only: [:new, :create, :destroy] # fixme do we need this?
-  get '/signup',              to: 'users#new'
-  get '/signin',              to: 'sessions#new'
-  delete '/signout',          to: 'sessions#destroy'
 end

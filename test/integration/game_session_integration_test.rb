@@ -1,6 +1,7 @@
 require 'test_helper'
 
-class GameSessionTest < ActionDispatch::IntegrationTest
+class GameSessionIntegrationTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
   # test "the truth" do
   #   assert true
   # end
@@ -18,7 +19,7 @@ class GameSessionTest < ActionDispatch::IntegrationTest
     get simulation_path
     assert_response :success
 
-    get finish_game_path
+    post finish_game_path
     assert_response :success
 
     # try to get simulation when leaved game

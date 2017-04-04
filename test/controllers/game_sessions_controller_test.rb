@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class GameSessionsControllerTest < ActionController::TestCase
+  include Devise::Test::ControllerHelpers
+
   setup do
     # @game_session = game_sessions(:one)
   end
@@ -94,7 +96,7 @@ class GameSessionsControllerTest < ActionController::TestCase
 
   test "simulation" do
     game = GameSession.create
-    users = User.first
+    users = [User.first, User.second]
 
     players = users.map { |user| Player.create(user_id: user.id, game_session_id: game.id) }
 

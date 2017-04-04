@@ -1,4 +1,4 @@
-<%= content_tag(:div, id: :timer) do %>
-    <%= content_tag(:div, 'Time lasts: ', id: 'timer-header') %>
-    <b><%= content_tag(:div, '', 'data-time-remaining' => time_remaining, :id => 'timer-value') %></b>
+<%= content_tag :div, id: :timer do %>
+    <%= content_tag :div, 'Time lasts: ', id: 'timer-header' %>
+    <%= content_tag :div, '', 'data-time-remaining' => time_remaining, :id => 'timer-value' %>
 <% end %>

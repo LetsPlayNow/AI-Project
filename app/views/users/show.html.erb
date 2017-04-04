@@ -1,9 +1,0 @@
-<% provide(:title, @user.name) %>
-<% provide :head do %>
-  <%=stylesheet_link_tag 'users/show'%>
-<% end %>
-
-<% provide :body do %>
-    <%= link_to "Home", root_path %>
-    <%= render @user %>
-<% end %>
