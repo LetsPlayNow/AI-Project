@@ -1,0 +1,8 @@
+<% if @game.is_active? %>
+    <%= content_tag :div, id: :timer do %>
+        <%= content_tag :div, 'Time lasts: ', id: 'timer-header' %>
+        <%= content_tag :div, '', 'data-time-remaining' => @game.time_remaining, :id => 'timer-value' %>
+    <% end %>
+<% else %>
+    <%= button_to 'Finish game', finish_game_path, :id => 'btn-finish-game', :method => :post %>
+<% end %>

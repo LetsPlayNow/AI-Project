@@ -2,7 +2,6 @@ module GameSessionsHelper
   module SyntaxErrors
     # Возвращает то, что было записано в поток $stderr за время выполнения блока
     def capture_stderr
-      # Перенаправляем $stderr и сохраняем его старое значение
       previous_stderr = $stderr
       $stderr = StringIO.new
       yield # There are code is executed
@@ -19,7 +18,7 @@ module GameSessionsHelper
       errors = capture_stderr do
         begin
           RubyVM::InstructionSequence.compile( code )
-        rescue Exception
+        rescue SyntaxError
         end
       end
     end

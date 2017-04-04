@@ -2,7 +2,8 @@ class GameSessionsController < ApplicationController
   include GameSessionsHelper::SyntaxErrors
   include GameSessionsHelper::Simulation
 
-  before_filter :check_signed_in
+  before_filter :authenticate_user!
+  before_filter :preset_variables
   before_filter :check_has_game,       except: [:start_game, :cancel_waiting, :demonstration]
   before_filter :check_has_no_game,    only:    :demonstration
   before_filter :check_game_is_active, only: :set_code
@@ -102,7 +103,6 @@ class GameSessionsController < ApplicationController
   # +@game+: current_user.game
   def finish_game
     @user.player.update_attribute(:is_in_game, false)
-    # FIXME но же он ничего не удаляет!
     # TODO destroy players
     # after that destroy game session
   end
@@ -121,10 +121,9 @@ class GameSessionsController < ApplicationController
       # TODO we need create module with Strategies samples in lib
       # TODO store class as file (it will be executable) and read it as string to here
       code = "class Strategy\n  def initialize\n    @my_unit = Unit.new\n    @info    = World.new\n  end\n\n  def move\n    # Write logic here\n  end\nend"
-      fake_players.append(Player.create(game_session_id: @game.id, code: code))
+      fake_players.append(Player.create(game_session_id: @game.id, code: code)) # fixme there should not be collisions with real user ids
     end
-    redirect_to action: :game_page
-    # redirect to game_page
+    redirect_to :game_page
     # todo we can simulate one times and after that show user cycled battle animation
   end
 
@@ -185,15 +184,9 @@ class GameSessionsController < ApplicationController
 
   # FILTERS
   # ==================================================================================
-    def check_signed_in
-      @user = current_user
-      redirect_to new_user_session_path unless signed_in?
-    end
-
     def check_has_game
       @game = @user.game
-
-      not_found
+      not_found if @game.nil?
     end
 
   # Player has game already
@@ -204,7 +197,7 @@ class GameSessionsController < ApplicationController
 
   # В неактивной игре игроки не имеют права отправлять код
   def check_game_is_active
-    head 500 if !@game.is_active?
+    head 500 unless @game.is_active?
   end
 
   # Нельзя покидать игру до ее завершения
@@ -217,5 +210,10 @@ class GameSessionsController < ApplicationController
     response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
     response.headers["Pragma"] = "no-cache"
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  end
+
+  # todo fixme
+  def preset_variables
+    @user = current_user
   end
 end

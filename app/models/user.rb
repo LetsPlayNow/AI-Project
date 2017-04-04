@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   end
 
   def name
-    # todo slice name from email
-    "chappy"
+    email_name_re = /[^@]*/
+    email_name_re.match(self.email)[0]
   end
 end

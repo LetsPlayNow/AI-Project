@@ -17,19 +17,19 @@
 
     <div id="info-panel">
       <div id="controls">
-        <% if @game.is_active? %>
-            <button id="send-code">Send Code</button>
-        <% end %>
-        <%= link_to "Simulation", simulation_path, method: :get %>
+        <div id="buttons">
+          <% if @game.is_active? %>
+              <button id="send-code">Send Code</button>
+          <% end %>
+          <%= link_to "Simulation", simulation_path, method: :get %>
+        </div>
+        <div id="game-info">
+          <div id="user-info">
+            <div id="user-name"><%= @user.name %></div>
+          </div>
+          <%= render partial: 'partials/time_panel' %>
+        </div>
 
-        Nickname:  <%= @user.name %>
-        <% if @game.is_active? %>
-            <%= render :partial => 'partials/timer',
-                       :locals => {:time_remaining => @game.time_remaining} %>
-        <% else %>
-            <%= button_to 'Finish game', finish_game_path,
-                          :id => 'btn-finish-game', :method => :post %>
-        <% end %>
       </div>
 
       <div id="game-help">
