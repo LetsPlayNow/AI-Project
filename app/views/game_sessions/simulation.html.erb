@@ -6,16 +6,18 @@
 
 <% provide :body do %>
     <div id="controls">
-      <%= link_to 'Go back', 'game_page', method: :get %>
-      <%= unless @game.is_active? %>
-          <%= button_to 'Finish game', finish_game_path, :id => 'btn-finish-game', :method => :post %>
+      <%= link_to 'Go back', 'game_page', id: 'back-link', method: :get %>
+      <% unless @game.is_active? %>
+          <div class="btn-group">
+            <%= button_to "Finish game", finish_game_path, id: 'btn-finish-game', method: :post %>
+          </div>
       <% end %>
     </div>
 
     <% if @simulator_output[:errors] %>
         <div id="errors">
-          <div class="errors-header">Errors in simulation</div>
-          <div class="errors-text"><%= @simulator_output[:errors] %></div>
+          <div id="errors-header">Errors in simulation</div>
+          <div id="errors-text"><%= @simulator_output[:errors] %></div>
         </div>
     <% end %>
 

@@ -6,11 +6,13 @@
 <% end %>
 
 <% provide :body do %>
-    <div id="message">
-      Please, wait. Your game will start as soon as possible.
-    </div>
-    <div id='game-status'>
-      How many players are waiting: <span class="text-danger" id='players-count'></span>
+    <div id="info">
+      <h2 id="message">
+        Please, wait. Your game will start as soon as possible.
+      </h2>
+      <div id='game-status'>
+        How many players are waiting: <span class="text-danger" id='players-count'></span>
+      </div>
     </div>
     <%= image_tag 'game_sessions/squares.gif', id: 'progress-pie' %>
 <% end %>

@@ -1,0 +1,58 @@
+@import "bootstrap";
+
+#code-window {
+  @extend .col-lg-7;
+  @extend .panel;
+}
+
+#errors-window {
+  @extend .panel-danger;
+}
+
+#errors-header {
+  @extend .panel-heading;
+}
+
+#errors-text {
+  @extend .panel-footer;
+}
+
+#info-panel {
+  @extend .panel, .panel-default;
+  @extend .col-lg-5;
+}
+
+#controls {
+  @extend .row;
+  @extend .panel;
+}
+
+#buttons {
+  @extend .col-lg-6;
+  @extend .btn-group-vertical;
+}
+
+#game-info {
+  @extend .col-lg-6;
+}
+
+#timer {
+  @extend .lead;
+}
+
+#user-info {
+  @extend .h4;
+}
+
+#simulation-link, #send-code {
+  @extend .btn, .btn-success, .btn-block;
+}
+
+#btn-finish-game {
+  @extend .btn, .btn-warning, .btn-block;
+}
+
+#game-help {
+  max-height: 60vh;
+  overflow-y: scroll;
+}

@@ -11,31 +11,34 @@
       <%= link_to 'Start game', start_game_path, id: 'start-game', method: :get %>
     </div>
 
+    <div id="text-info">
+      <div id="description">
+        <h2>About</h2>
+        <p>
+          On this site you can write AI using <%= link_to 'Ruby', 'https://www.ruby-lang.org/en/' %> language
+          and let it fight against AIs written by other players
+          AI - Project can give you new knowledge, skills, and a lot of fun!
+          Just sign up to start this journey.
+        </p>
+        <%= link_to 'More info', 'about' %>
+      </div>
+
+      <div id="links">
+        <h2>Additional links</h2>
+        <!--TODO -->
+        <ul>
+          <li>Habrahabr link</li>
+          <li>Creator link</li>
+          <li>Github link</li>
+        </ul>
+      </div>
+    </div>
+
     <div id="media">
       <!--TODO gif файл с демкой, где 2 юнита кружатся по квадрату и стреляют в друг друга-->
       <%= image_tag('static_pages/preview.png',
                     alt: 'Game world of AI - Project',
                     title: 'AI - Project Logo',
                     id: 'logo') %>
-    </div>
-
-    <div id="description">
-      <p>
-        On this site you can write AI using <%= link_to 'Ruby', 'https://www.ruby-lang.org/en/' %> language
-        and let it fight against AIs written by other players
-        AI - Project can give you new knowledge, skills, and a lot of fun!
-        Just sign up to start this journey.
-      <p>
-        <b><%= link_to 'About project', 'about' %></b>
-    </div>
-
-    <div id="links">
-      Important links
-      <!--TODO -->
-      <ul>
-        <li>Habrahabr link</li>
-        <li>Creator link</li>
-        <li>Github link</li>
-      </ul>
     </div>
 <% end %>

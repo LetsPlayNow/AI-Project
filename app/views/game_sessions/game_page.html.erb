@@ -20,14 +20,17 @@
         <div id="buttons">
           <% if @game.is_active? %>
               <button id="send-code">Send Code</button>
+          <% else %>
+              <button id="send-code" class="disabled">Send Code</button>
           <% end %>
-          <%= link_to "Simulation", simulation_path, method: :get %>
+          <%= link_to "Simulation", simulation_path, id: 'simulation-link', method: :get %>
         </div>
+
         <div id="game-info">
-          <div id="user-info">
-            <div id="user-name"><%= @user.name %></div>
-          </div>
           <%= render partial: 'partials/time_panel' %>
+          <div id="user-info">
+            <div id="user-name">Name: <%= @user.name %></div>
+          </div>
         </div>
 
       </div>

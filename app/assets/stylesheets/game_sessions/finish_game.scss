@@ -1,0 +1,10 @@
+@import "bootstrap";
+
+#home-link {
+  @extend .btn, .btn-primary, .btn-lg;
+}
+
+#message {
+  @extend .alert, .alert-success;
+}
+

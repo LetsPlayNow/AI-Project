@@ -1,9 +1,42 @@
+@import "bootstrap";
+
 #view {
-  height: 90%;
-  width: 100%;
+  @extend .panel, .panel-default;
+  max-height: 90%;
+  max-width: 100%;
 }
 
 #view canvas {
   max-width: 100%;
   max-height: 100%;
+}
+
+#controls {
+  @extend .btn-group-justified;
+  @extend .panel;
+}
+
+#btn-finish-game, #back-link {
+  @extend .btn;
+}
+
+#btn-finish-game {
+  @extend .btn-warning;
+}
+
+#back-link {
+  @extend .btn-default;
+}
+
+#errors {
+  //@extend .lead;
+  @extend .panel, .panel-danger;
+}
+
+#errors-header {
+  @extend .panel-heading;
+}
+
+#errors-text {
+  @extend .panel-body;
 }

@@ -2,10 +2,11 @@
 // * zoom - какую часть scale вернуть
 function get_scale(zoom)
 {
-    zoom = zoom || 1;
-    var scale_w = document.documentElement.clientWidth  / View.width;
-    var scale_h = document.documentElement.clientHeight / View.height;
-    return Math.min(scale_w, scale_h)*zoom;
+    // zoom = zoom || 1;
+    // var scale_w = document.documentElement.clientWidth  / View.width;
+    // var scale_h = document.documentElement.clientHeight / View.height;
+    // return Math.min(scale_w, scale_h)*zoom;
+    return 1;
 }
 
 function scale_this(value)
@@ -135,6 +136,7 @@ function Background(side)
 
 
 function View() {
+    // fixme it's ugly
     View.s_data;
     View.world_s;
     View.background;
@@ -333,3 +335,14 @@ function View() {
 
 var view = new View();
 $(view.run());
+
+// todo play with resizing canvas
+// window.onresize = function (event) {
+//     var w = window.innerWidth;
+//     var h = window.innerHeight;
+//     if (Math.min(w, h) == w)
+//         View.stage.width = w;
+//     else
+//         View.stage.height = h;
+// }
+

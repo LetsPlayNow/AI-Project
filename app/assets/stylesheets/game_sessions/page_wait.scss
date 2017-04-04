@@ -1,0 +1,12 @@
+@import "bootstrap";
+
+#info {
+  @extend .jumbotron;
+  @extend .lead;
+}
+
+#progress-pie {
+  @extend .img-responsive;
+  min-width: 40%;
+  @extend .center-block;
+}

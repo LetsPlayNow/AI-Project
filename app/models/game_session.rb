@@ -43,7 +43,7 @@ class GameSession < ActiveRecord::Base
       time_lasts = 0
     end
 
-    return time_lasts.round
+    time_lasts.round
   end
 
   private

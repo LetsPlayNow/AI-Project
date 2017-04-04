@@ -12,7 +12,9 @@
 
     <body>
     <%= render partial: 'partials/navbar' %>
-    <%= yield :body %>
-    <%= yield %>
+    <div class="container-fluid">
+      <%= yield :body %>
+      <%= yield %>
+    </div>
     </body>
 </html>
