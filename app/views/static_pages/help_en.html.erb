@@ -1,14 +1,11 @@
 <% provide :title, 'Help'%>
 
 <% provide :head do %>
-  <%= stylesheet_link_tag 'static_pages/help'%>
+    <%= stylesheet_link_tag 'static_pages/help'%>
 <% end %>
 
 <% provide :body do %>
-  <div id = "header">
-    <h1>\ <%=link_to "AI - Project", root_url%> \ Help</h1>
-    <h2>Write your own AI!</h2>
-  </div>
+  <%= link_to 'Русскоязычная версия этой страницы', help_url(:lang => 'ru')%>
 
   <div id = "contents">
     <h1> Contents </h1>
@@ -32,13 +29,6 @@
           </li>
         </ul>
       </li>
-    </ul>
-  </div>
-
-  <div id = "links">
-    <h1>Links</h1>
-    <ul>
-      <li><%= link_to '[Russian]Помощь', help_url(:lang => 'ru')%></li>
     </ul>
   </div>
 
@@ -85,8 +75,6 @@
 
     <h2>5) Game Results Page</h2>
     A page with the results of a gaming session.
-
-    <strong>About all errors should be reported using the form on the right.</strong>
   </div>
 
   <div id = "gaming-sessions">

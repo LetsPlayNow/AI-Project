@@ -5,35 +5,51 @@
 <% end %>
 
 <% provide :body do %>
-    <%= link_to '[Russian] О проекте', about_url(lang: 'ru') %>
+    <%= link_to 'Русскоязычная версия страницы', about_url(lang: 'ru') %>
 
-  <div id = "intro">
-  <h2>Write your own AI!</h2>
-  <p>Everyone can write it's own AI. This is one of the main ideas of this site.</p>
-  <p>Worldwide conducted a very interesting competition, commonly referred to as Code Game Challenge.
-    Most of them are held on various programming competitions, like <%=link_to "\"ACM ICPC\"", 'http://icpc.baylor.edu/'%>.
-    They consist in writing the logic of conduct for player-controlled unit that exists in the game world.</p>
-  <p>Remember your favorite game.
-    What if you could program the behavior of your character, and then see how it behaves under the control of your code?
-    Interesting, is n't it?
-    On this website you can do something similar, and from anywhere, anytime.</p>
-  </div>
+    <h1>Write your own AI!</h1>
 
-  <div id="link"><%= link_to 'Sign up', signup_url %> and start playing now!</div>
+    <div id = "intro">
+      <p>Everyone can write it's own AI. This is one of the main ideas of this site.</p>
+      <p>Worldwide conducted a very interesting competition, commonly referred as Code Game Challenge.
+        Most of them are held on various programming competitions, like <%=link_to "\"ACM ICPC\"", 'http://icpc.baylor.edu/'%>.
+        They consist in writing the logic of conduct for player-controlled unit that exists in the game world.
+      </p>
+      <p>Remember your favorite game.
+        What if you could program the behavior of your character, and then see how it behaves under the control of your code?
+        Interesting, isn't it?
+        On this website you can do something similar, and from anywhere, anytime.
+      </p>
+      <div id="link"><%= link_to 'Sign up', new_user_registration_path %> and start playing now!</div>
+    </div>
 
-  <div id = "from-me">
+
     <h2>By creator</h2>
+    <div id = "by-creator">
+      <p>This project was created entirely by one person, who initially knew nothing about Web, Rails, JavaScript, HTML, CSS and several other web - technologies.
+        This adventure gave me a lot of experience and knowledge.
+        And it was a good test. It is not easy to keep calm when every unknown function turns into a huge list of nuances and causes no fewer bugs and issues.
+        And you can only ask Google and StackOverflow for help.</p>
+      <p>Also, the creation of this project took a long time with all my perseverance.</p>
+      <p>I will fix errors as my time and effort. I now have very little time.
+        So if I'm late with regular fixes, do not be angry. :)</p>
 
-    <p>This project was created entirely by one person, who initially knew nothing about Web, Rails, JavaScript, HTML, CSS and several other web - technologies.
-      This adventure gave me a lot of experience and knowledge.
-      And it was a good test. It is not easy to keep calm when every unknown function turns into a huge list of nuances and causes no fewer bugs and issues.
-      And you can only ask Google and StackOverflow for help.</p>
-    <p>Also, the creation of this project took a long time with all my perseverance.
-      I would be pleased if you <%=link_to 'support', support_project_url(lang: 'en')%> this project.
-      It motivates me to improve and refine AI - Project and let me know that it's really interesting to you.</p>
-    <hr>
-    <p>If you have any suggestions or you find a bug - write about it in the form on the right of page ("Leave Feedback").</p>
-    <p>I will fix errors as my time and effort. I now have very little time, because I'm getting an education.
-      So if I'm late with regular fixes, do not be angry. :)</p>
-  </div>
+      <h3>About me</h3>
+      <div id="about-me">
+        TODO there should be a link.
+        It's easier to fix main resume than fix it everywhere
+      </div>
+    </div>
+
+    <h2>Additional links</h2>
+    <div id="links">
+      TODO some paragraphs with all related links with their short description
+    </div>
+
+    <h2> Open Source </h2>
+    <div id="open-source">
+      This site is open source now.
+      TODO add github ribbon. Maybe do it yourself
+      <!-- TODO fork me on github https://github.com/blog/273-github-ribbons http://tholman.com/github-corners/-->
+    </div>
 <% end %>

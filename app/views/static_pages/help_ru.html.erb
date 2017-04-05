@@ -5,10 +5,8 @@
 <% end %>
 
 <% provide :body do %>
-  <div id = "header">
-    <h1>\ <%=link_to "AI - Project", root_url%> \ Help</h1>
-    <h2>Write your own AI!</h2>
-  </div>
+  <%= link_to 'English version of this page', help_url(:lang => 'en')%>
+
 
   <div id = "contents">
     <h1> Содержание </h1>
@@ -32,14 +30,6 @@
           </li>
         </ul>
       </li>
-    </ul>
-  </div>
-
-  <div id = "links">
-    <h1>Ссылки</h1>
-    <ul>
-      <li><%= link_to '[English]Help', help_url(:lang => 'en')%></li>
-      <!--<li><%= link_to '[Russian]Версия туториала для людей с чувством юмора', funny_tutorial_url(:lang => 'ru')%></li>-->
     </ul>
   </div>
 
@@ -87,8 +77,6 @@
     <h2>5) Game Results Page</h2>
     <div class="content">
       Страница с результатами игровой сессии<br>
-
-      <strong>О всех ошибках следует сообщить при помощи формы справа.</strong>
     </div>
   </div>
 

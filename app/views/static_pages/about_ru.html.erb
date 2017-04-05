@@ -1,11 +1,10 @@
 <% provide :title, 'About'%>
 
 <% provide :head do %>
-  <%= stylesheet_link_tag 'general' %>
 <% end %>
 
 <% provide :body do %>
-  <%= link_to '[English]About', about_url(lang: 'en') %>
+  <%= link_to 'Ensligh version of this page', about_url(lang: 'en') %>
 
   <div id = "intro">
     <h2>Write your own AI!</h2>
@@ -19,7 +18,7 @@
       На этом сайте вы можете сделать нечто подобное, причем откуда угодно и когда угодно.</p>
   </div>
 
-  <div id="link"><%= link_to 'Зарегистрируйтесь', signup_url %> и начинте играть прямо сейчас!</div>
+  <div id="link"><%= link_to 'Зарегистрируйтесь', new_user_registration_path %> и начинте играть прямо сейчас!</div>
 
   <div id = "from-me">
     <h2>От создателя</h2>
