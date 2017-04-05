@@ -1,0 +1,24 @@
+@import "bootstrap";
+
+#user-info {
+  @extend .well;
+  @extend .col-lg-5;
+  @extend .media;
+}
+
+#skin {
+  @extend .media-left, .media-middle;
+}
+
+#user-name {
+  @extend .h2;
+  @extend .media-heading;
+}
+
+#wins {
+  @extend .glyphicon, .glyphicon-screenshot;
+}
+
+#email {
+  @extend .glyphicon, .glyphicon-envelope;
+}

@@ -1,0 +1,23 @@
+<% provide :title, 'Profile' %>
+<% provide :head do %>
+    <%= stylesheet_link_tag 'users' %>
+<% end %>
+
+<% provide :body do %>
+    <div id="user-info">
+      <div id="skin">
+        <!--TODO own skins-->
+        <%= image_tag 'game_sessions/unit.png', id: 'unit' %>
+      </div>
+
+      <div class="media-body">
+        <div id="user-name"><%= @user.name %></div>
+        <div id="user-email">
+          <span id="email"></span> <b><%= @user.email %></b>
+        </div>
+        <div id="wins-count">
+          <span id="wins"></span>
+          <b>Wins count:</b> <%= @user.wins_count %></div>
+      </div>
+    </div>
+<% end %>

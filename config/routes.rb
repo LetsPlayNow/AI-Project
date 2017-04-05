@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
+  get '/profile', to: 'users#show', as: :user_profile
   root to: 'static_pages#home'
 
   # Static pages
@@ -21,5 +22,6 @@ Rails.application.routes.draw do
   post '/finish_game', to: 'game_sessions#finish_game', as: :finish_game
   get '/demonstration', to: 'game_sessions#demonstration', as: :demonstration
   get '/404', to: 'application#render_404'
+
 
 end
