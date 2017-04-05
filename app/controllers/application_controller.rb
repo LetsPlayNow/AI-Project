@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
   end
 
   def render_404
-    flash[:errors] = "This page doesn't exist"
     render template: 'errors/errors', status: :not_found
   end
 end

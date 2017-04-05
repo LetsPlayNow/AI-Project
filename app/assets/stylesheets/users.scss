@@ -1,9 +1,10 @@
 @import "bootstrap";
 
 #user-info {
-  @extend .well;
+  @extend .jumbotron;
   @extend .col-lg-5;
   @extend .media;
+  @extend .lead;
 }
 
 #skin {
