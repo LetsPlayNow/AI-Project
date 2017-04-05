@@ -7,8 +7,8 @@
     <h3><%= link_to 'To home page', home_url, id: 'home-link' %></h3>
 
     <%= content_tag :div, id: 'message' do |tag| %>
-        <% if current_user.id == @game.winner_id %> Nice try!
-        <% else %> You are a winner! Congratulations!
+        <% if current_user.id == @game.winner_id %> You are a winner! Congratulations!
+        <% else %> Nice try!
         <% end %>
     <% end %>
 

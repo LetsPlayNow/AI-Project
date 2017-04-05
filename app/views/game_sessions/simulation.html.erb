@@ -7,7 +7,7 @@
 <% provide :body do %>
     <div id="controls">
       <%= link_to 'Go back', 'game_page', id: 'back-link', method: :get %>
-      <% unless @game.is_active? %>
+      <% unless @game.time_remaining > 0 %>
           <div class="btn-group">
             <%= button_to "Finish game", finish_game_path, id: 'btn-finish-game', method: :post %>
           </div>

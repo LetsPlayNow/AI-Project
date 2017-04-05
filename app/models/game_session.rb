@@ -21,7 +21,7 @@ class GameSession < ActiveRecord::Base
 
   # rewrite this
   def has_players?
-    players(true).any? { |player| player.is_in_game }
+    players(true).any? { |player| player.is_in_game && !player.user.is_bot }
   end
 
   def winner

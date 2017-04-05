@@ -1,4 +1,4 @@
-<% if @game.is_active? %>
+<% if @game.time_remaining > 0 %>
     <div id="timer">
       <span class="glyphicon glyphicon-time"></span>
       <%= content_tag :span, '', 'data-time-remaining' => @game.time_remaining, :id => 'timer-value' %>

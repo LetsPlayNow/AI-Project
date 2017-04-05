@@ -74,6 +74,7 @@ class GameSessionsController < ApplicationController
 
   # Симуляция
   # +@game+: current_user.game
+  # todo we can simulate one times and after that show user cycled battle animation
   def simulation
     codes = {}
     @game.players(true).each { |player| codes[player.user_id] = player.code }
@@ -103,28 +104,30 @@ class GameSessionsController < ApplicationController
   # +@game+: current_user.game
   def finish_game
     @user.player.update_attribute(:is_in_game, false)
-    # TODO destroy players
-    # after that destroy game session
+    # TODO destroy players. But players can be used to show code of other players
+    # TODO in future, we can do other battle mode - challendge strategies of other players
   end
 
   # Game with fake players
   # User can easily leave it and start other game
-  # TODO user can't send code when game is finished
   def demonstration
-    # TODO create fake user for this player
-    # Maybe constant for User table
-    # Create game with user and fake user (where to store it's strategy?)
-    @game = GameSession.create
+    @game = DemoGameSession.create
     @player = Player.create(user_id: @user.id, game_session_id: @game.id)
-    fake_players = []
     GameSession.other_players_count.times do |i|
       # TODO we need create module with Strategies samples in lib
       # TODO store class as file (it will be executable) and read it as string to here
-      code = "class Strategy\n  def initialize\n    @my_unit = Unit.new\n    @info    = World.new\n  end\n\n  def move\n    # Write logic here\n  end\nend"
-      fake_players.append(Player.create(game_session_id: @game.id, code: code)) # fixme there should not be collisions with real user ids
+      random_password = SecureRandom.hex(8)
+      fake_user_id = User.maximum('id') + 1
+      fake_user = User.create(email: "bot#{fake_user_id.to_s}@example.com",
+                              :password => random_password,
+                              :password_confirmation => random_password,
+                              is_bot: true)
+
+      fake_player = Player.create(game_session_id: @game.id,
+                                  user_id: fake_user.id)
+      # todo leave players not deleted and show list of them to see player's code
     end
     redirect_to :game_page
-    # todo we can simulate one times and after that show user cycled battle animation
   end
 
   private
@@ -178,6 +181,11 @@ class GameSessionsController < ApplicationController
     def destroy
       if @game.is_empty?
         increment_winner_statistic
+
+        # destroy bots users
+        bots_ids = @game.users.collect {|user| user.id if user.is_bot}
+        User.where(id: bots_ids).destroy_all
+        @game.players.destroy_all # todo use it in future
         @game.destroy
       end
     end
@@ -202,7 +210,7 @@ class GameSessionsController < ApplicationController
 
   # Нельзя покидать игру до ее завершения
   def check_game_is_ended
-    head 500 if @game.is_active?
+    head 500 if @game.is_active? && !@game.is_a?(DemoGameSession)
   end
 
   # Нужно, чтобы браузер не забывал брать свежие данные о симуляции у сервера (а не лез за ними в хэш)
