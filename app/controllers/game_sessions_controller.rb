@@ -111,6 +111,9 @@ class GameSessionsController < ApplicationController
   # Game with fake players
   # User can easily leave it and start other game
   def demonstration
+    # todo nice link here https://github.com/plataformatec/devise/wiki/How-Tos
+    # todo we can use this https://github.com/plataformatec/devise/wiki/How-To:-Create-a-guest-user
+    # todo ask only email in registration https://github.com/plataformatec/devise/wiki/How-To:-Email-only-sign-up
     @game = DemoGameSession.create
     @player = Player.create(user_id: @user.id, game_session_id: @game.id)
     GameSession.other_players_count.times do |i|
