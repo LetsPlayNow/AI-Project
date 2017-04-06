@@ -1,0 +1,26 @@
+@import "bootstrap";
+
+.field
+{
+  @extend .form-group;
+}
+
+div .field input
+{
+  @extend .form-control;
+}
+
+.actions input
+{
+  @extend .btn, .btn-success, .btn-block;
+}
+
+form+a
+{
+  @extend .lead;
+}
+
+#flash_alert
+{
+  @extend .alert, .alert-danger;
+}

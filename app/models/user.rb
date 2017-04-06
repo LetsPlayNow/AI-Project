@@ -2,7 +2,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  :rememberable, :trackable, :validatable
+  # todo in future make it oniauthable and recoverable
   has_many :players
   has_many :game_sessions, through: :players
 

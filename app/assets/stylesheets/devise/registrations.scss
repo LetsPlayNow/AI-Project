@@ -1,0 +1,39 @@
+@import "bootstrap";
+
+
+.field
+{
+  @extend .form-group;
+}
+
+input
+{
+  @extend .form-control;
+}
+
+#error_explanation
+{
+  @extend .alert, .alert-danger;
+}
+
+.field_with_errors
+{
+  @extend .has-error;
+}
+
+div br
+{
+  display: none;
+}
+
+.actions input
+{
+  @extend .btn, .btn-success;
+}
+
+
+
+form+a
+{
+  @extend .lead;
+}
