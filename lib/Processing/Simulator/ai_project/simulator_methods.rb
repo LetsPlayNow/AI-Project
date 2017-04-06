@@ -225,7 +225,7 @@ module AIProject
     # Получаем объект стратегии из строки с кодом
     module ParseStrategies
       def get_object_from_str(str, module_name)
-        secure_execute { eval prepare_strategy_to_eval(str, module_name) }
+          eval prepare_strategy_to_eval(str, module_name) # fixme eval is insecure operation
       end
 
       # Добавить строку Strategy.new в конец строки strategy
@@ -268,12 +268,14 @@ module AIProject
     # #
     # Secure execution of block of code
     module SafeEval
+      def windows?
+        (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+      end
       require 'secure'
       # TODO нужно поэкспериментировать со временем выполнения скрипта и занимаемой им памятью
-      Settings::SYSTEM = :windows
-      def secure_execute( &block )
-        if Settings::SYSTEM != :windows
-          Secure.ly(:timeout => 0.5, :limit_cpu => 1) { block.call } # fixme or yield?
+      def secure_execute
+        if !windows?
+          Secure.ly(:timeout => 2, :limit_cpu => 1) { yield }
         else
           block.call
         end

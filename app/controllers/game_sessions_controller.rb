@@ -83,7 +83,7 @@ class GameSessionsController < ApplicationController
     begin
       # fixme как квариант, можно хранить симулятор в переменной и делать refresh
       @simulator_output = AIProject::Simulator.new(codes).simulate
-    rescue RuntimeError, NameError => e
+    rescue RuntimeError, NameError, Secure::ChildKilledError, Secure::TimeoutError, SecurityError => e
       @simulator_output = {errors: e.message}
     end
 

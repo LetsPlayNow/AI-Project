@@ -7,7 +7,7 @@ require 'unit'
 module AIProject
   module WorldConstants
     MAP_SIZE = 10 # Карта - квадрат со стороной MAP_SIZE
-    TACT_LIMIT = 15 # Максимальное число тактов симулятора
+    TACT_LIMIT = 20 # Максимальное число тактов симулятора
     SHOOT_ENERGY_COSTS = 50 # Затраты энергии на выстрел
     ENERGY_PER_METER = 50 # Затраты энергии на прохождение одного игрового метра
     ENERGY_RESTORATION = 100 # Восстановление энергии за 1 такт
