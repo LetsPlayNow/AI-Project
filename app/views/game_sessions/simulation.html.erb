@@ -9,7 +9,9 @@
       <%= link_to 'Go back', 'game_page', id: 'back-link', method: :get %>
       <% unless @game.time_remaining > 0 %>
           <div class="btn-group">
-            <%= button_to "Finish game", finish_game_path, id: 'btn-finish-game', method: :post %>
+            <%= button_to finish_game_path, id: 'btn-finish-game', method: :post do%>
+                <span class="glyphicon glyphicon-flag"></span> Finish game
+            <% end %>
           </div>
       <% end %>
     </div>

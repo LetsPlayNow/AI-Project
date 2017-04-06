@@ -12,11 +12,27 @@
 
     <ul class="nav navbar-nav navbar-right">
       <% if signed_in? %>
-          <li><%= link_to 'Profile', user_profile_path, method: :get %> </li>
-          <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+          <li>
+            <%= link_to user_profile_path, method: :get do%>
+                <span class="glyphicon glyphicon-star-empty"></span> Profile
+            <% end %>
+          </li>
+          <li>
+            <%= link_to destroy_user_session_path, method: :delete do%>
+                <span class="glyphicon glyphicon-log-out"></span> Sign out
+            <% end %>
+          </li>
       <% else %>
-          <li><%= link_to 'Sign up', new_user_registration_path, method: :get %></li>
-          <li><%= link_to 'Login', new_user_session_path, method: :get %></li>
+          <li>
+            <%= link_to new_user_registration_path, method: :get do %>
+                <span class="glyphicon glyphicon-user"></span> Sign up
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_user_session_path, method: :get do%>
+                <span class="glyphicon glyphicon-log-in"></span> Login
+            <% end %>
+          </li>
       <% end %>
     </ul>
   </div>

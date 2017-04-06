@@ -8,12 +8,17 @@
     <div id="title">
       <h1> AI Project </h1>
       <p>Write your own AI!</p>
-      <%= link_to 'Start game', start_game_path, id: 'start-game', method: :get,
+      <!--TODO check do user havs game and send him to continue action-->
+      <%= link_to start_game_path, id: 'start-game', method: :get,
                   'data-toggle' => "tooltip",
-                  'title' =>"Game with real player with time limitations. \nYou can't leave this game before it ends" %>
-      <%= link_to 'Start solo game', demonstration_path, id: 'demonstration', method: :get,
+                  'title' =>"Game with real player with time limitations. \nYou can't leave this game before it ends" do %>
+          Start or continue <br>multiplayer game
+          <% end %>
+      <%= link_to demonstration_path, id: 'demonstration', method: :get,
                   'data-toggle' => "tooltip",
-                  'title' =>"Game with bots without time limitations.\n You can leave it at any time" %>
+                  'title' =>"Game with bots without time limitations.\n You can leave it at any time" do %>
+          Start or continue <br> solo game
+      <% end %>
     </div>
 
     <div id="text-info">

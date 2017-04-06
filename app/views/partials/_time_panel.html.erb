@@ -4,5 +4,7 @@
       <%= content_tag :span, '', 'data-time-remaining' => @game.time_remaining, :id => 'timer-value' %>
     </div>
 <% else %>
-    <%= button_to 'Finish game', finish_game_path, :id => 'btn-finish-game', :method => :post %>
+    <%= button_to finish_game_path, :id => 'btn-finish-game', :method => :post do %>
+        <span class="glyphicon glyphicon-flag"></span> Finish game
+    <% end %>
 <% end %>

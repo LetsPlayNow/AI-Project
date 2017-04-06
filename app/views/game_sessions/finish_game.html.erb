@@ -4,7 +4,11 @@
 <% end %>
 
 <% provide :body do %>
-    <h3><%= link_to 'To home page', home_url, id: 'home-link' %></h3>
+    <h3>
+      <%= link_to home_url, id: 'home-link' do %>
+        <span class="glyphicon glyphicon-home"></span> To home page
+      <% end %>
+    </h3>
 
     <%= content_tag :div, id: 'message' do |tag| %>
         <% if current_user.id == @game.winner_id %> You are a winner! Congratulations!
