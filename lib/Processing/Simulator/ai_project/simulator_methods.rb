@@ -231,6 +231,7 @@ module AIProject
       # Добавить строку Strategy.new в конец строки strategy
       # Fixme уязвимость - пользователь может создавать объекты симулятора, если будет знать их имена
       def prepare_strategy_to_eval(strategy, module_name)
+        # fixme workaround here is to add new method in the end of this line
         "module #{module_name}\n" + strategy + "\nend\n" + "#{module_name}::Strategy.new"
       end
 
