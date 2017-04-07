@@ -5,7 +5,7 @@
 
 <% provide :body do %>
     <h3>
-      <%= link_to home_url, id: 'home-link' do %>
+      <%= link_to home_url, id: 'home-link', method: :get do %>
         <span class="glyphicon glyphicon-home"></span> To home page
       <% end %>
     </h3>
