@@ -4,7 +4,7 @@ class GameSession < ActiveRecord::Base
 
   # GameSession duration in seconds
   def self.game_duration
-    5.minutes
+    60.minutes
   end
 
   def self.players_count

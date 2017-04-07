@@ -275,11 +275,13 @@ module AIProject
       require 'secure'
       # TODO нужно поэкспериментировать со временем выполнения скрипта и занимаемой им памятью
       def secure_execute
-        if !windows?
-          Secure.ly(:timeout => 2, :limit_cpu => 1) { yield }
-        else
-          block.call
-        end
+        yield
+        # Secure.ly(:timeout => 1, :limit_cpu => 1, :safe => 0) { yield }
+        # if not windows?
+        #   Secure.ly(:timeout => 2, :limit_cpu => 1, safe: 0) { yield }
+        # else
+        #   block.call
+        # end
       end
     end
   end

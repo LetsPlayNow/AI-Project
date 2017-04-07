@@ -7,7 +7,8 @@ function preset_codemirror()
         mode:  'ruby',
         theme: 'mdn-like',
         lineNumbers: true,
-        tabSize: 2
+        tabSize: 2,
+        fullScreen: false
     });
 
     jQuery('#send-code').click(send_code);

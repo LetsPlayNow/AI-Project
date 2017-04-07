@@ -8,15 +8,17 @@
   @extend .btn, .btn-success, .btn-lg;
 }
 
-#media, #text-info {
-  @extend .col-lg-5;
+#media {
+  @extend .col-lg-4, .col-md-offset-1;
 }
 
 #text-info {
+  @extend .col-lg-6;
   @extend .lead;
 }
 
-#logo {
-  @extend .img-responsive;
+video
+{
+  @extend .img-thumbnail;
+  @extend .center-block;
 }
-
