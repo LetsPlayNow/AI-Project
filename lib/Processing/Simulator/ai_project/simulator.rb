@@ -9,7 +9,10 @@ require 'simulator_methods'
 =end
 
 module AIProject
+  AIProject::Move
   class Simulator
+    attr_accessor :strategies
+
     def initialize(codes)
       @ids = codes.keys
       @world_s = World_s.new(@ids)

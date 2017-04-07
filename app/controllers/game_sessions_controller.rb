@@ -79,7 +79,7 @@ class GameSessionsController < ApplicationController
     codes = {}
     @game.players(true).each { |player| codes[player.user_id] = player.code }
 
-    remove_previous_strategies_definitions
+    # remove_previous_strategies_definitions
     begin
       # fixme как квариант, можно хранить симулятор в переменной и делать refresh
       @simulator_output = AIProject::Simulator.new(codes).simulate

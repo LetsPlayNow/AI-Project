@@ -41,7 +41,11 @@ module GameSessionsHelper
     def get_strategy_constant(id)
       # strategy = AIProject::SimulatorMethods::ParseStrategies::Strategy#{player.id}::Strategy.new
       # Why Constant path so big i don't know
-      'AIProject::Simulator_methods::Parse_Strategies::Strategy' + id.to_s
+      user_const = "AIProject::SimulatorMethods::ParseStrategies::Strategy#{id.to_s}::Strategy".safe_constantize
+      if (defined? user_const) == "constant"
+        Object.send(:remove_const, user_const)
+      end
+      "AIProject::SimulatorMethods::ParseStrategies::Strategy#{id.to_s}::Strategy"
     end
 
     def add_players_info_in(simulator_output)

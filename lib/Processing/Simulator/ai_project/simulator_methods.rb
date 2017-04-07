@@ -174,12 +174,15 @@ module AIProject
     #================================================================================================
     # Операции со списками действий
     module MoveListsOperations
+      require 'secure'
       # Сохраняет списки действий юнитов из полей стратегий в переменную @move_lists
       def get_move_lists
-        # TODO Вот сюда можно добавить @world_s.current_unit_id = i
-        @strategies.each_key do |id|
-          secure_execute { @strategies[id].move }
-          @move_lists[id] = @strategies[id].instance_variable_get(:@my_unit).move_list
+        @strategies.each do |id, strategy|
+          strategy_modified = Secure.ly(:timeout => 1, :limit_cpu => 1) do
+            strategy.move
+            strategy
+          end
+          @move_lists[id] = strategy_modified.instance_variable_get("@my_unit").move_list
         end
       end
 
@@ -225,14 +228,14 @@ module AIProject
     # Получаем объект стратегии из строки с кодом
     module ParseStrategies
       def get_object_from_str(str, module_name)
-          eval prepare_strategy_to_eval(str, module_name) # fixme eval is insecure operation
+        prepare_strategy_to_eval(str, module_name)
       end
 
       # Добавить строку Strategy.new в конец строки strategy
       # Fixme уязвимость - пользователь может создавать объекты симулятора, если будет знать их имена
       def prepare_strategy_to_eval(strategy, module_name)
-        # fixme workaround here is to add new method in the end of this line
-        "module #{module_name}\n" + strategy + "\nend\n" + "#{module_name}::Strategy.new"
+        strategy_module = eval "module #{module_name}\n" + strategy + "\nend\n #{module_name}::Strategy"
+        Secure.ly(:timeout => 1, :limit_cpu => 1) { strategy_module.new }
       end
 
       # TODO вынести на уровень выше в подключаемый файл (так как нужен и в контроллере)
