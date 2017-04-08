@@ -1,5 +1,6 @@
 require 'world_s'
 require 'simulator_methods'
+require 'timeout'
 
 =begin
 * TODO {in} settings

@@ -26,19 +26,20 @@ class Strategy
     end
 
     step(@directions[@turns_count])
-    shoot_to_enemy()
+    shoot_to_enemy
   end
 
   def step(direction)
+    len = 1
     case direction
     when :up
-      @my_unit.go_up(1)
+      @my_unit.go_up(len)
     when :down
-      @my_unit.go_down(1)
+      @my_unit.go_down(len)
     when :left
-      @my_unit.go_left(1)
+      @my_unit.go_left(len)
     when :right
-      @my_unit.go_right(1)
+      @my_unit.go_right(len)
     end
   end
 
@@ -49,10 +50,6 @@ class Strategy
 
   def get_enemy
     return @info.get_enemy(@my_unit.id)
-  end
-
-  def shoot_to(enemy)
-    @my_unit.shoot_to(enemy.location.x, enemy.location.y)
   end
 end
   "

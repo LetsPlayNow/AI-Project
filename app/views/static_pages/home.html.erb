@@ -45,15 +45,6 @@
     </div>
 
     <div id="media">
-      <!--TODO gif файл с демкой, где 2 юнита кружатся по квадрату и стреляют в друг друга-->
-      <video loop autoplay="autoplay">
-        <source src="<%=video_path('vid2')%>" type="video/mp4" >
-        Your browser does not support the video tag.
-        <%# image_tag('static_pages/preview.png',
-                      alt: 'Game world of AI - Project',
-                      title: 'AI - Project Logo',
-                      id: 'logo') %>
-      </video>
-
+      <%= video_tag(["vid2.mp4", "vid2.mpeg"], loop: true, autoplay: true) %>
     </div>
 <% end %>

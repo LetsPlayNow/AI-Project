@@ -179,9 +179,11 @@ module AIProject
       # Сохраняет списки действий юнитов из полей стратегий в переменную @move_lists
       def get_move_lists
         @strategies.each do |id, strategy|
-          strategy_modified = Secure.ly(:timeout => 1, :limit_cpu => 1) do
-            strategy.move
-            strategy
+          strategy_modified = Timeout::timeout(1) do
+            Secure.ly(:limit_cpu => 1) do
+              strategy.move
+              strategy
+            end
           end
           @strategies[id] = strategy_modified
           @move_lists[id] = strategy_modified.instance_variable_get("@my_unit").move_list
@@ -237,7 +239,7 @@ module AIProject
       # Fixme уязвимость - пользователь может создавать объекты симулятора, если будет знать их имена
       def prepare_strategy_to_eval(strategy, module_name)
         strategy_module = eval "module #{module_name}\n" + strategy + "\nend\n #{module_name}::Strategy"
-        Secure.ly(:timeout => 1, :limit_cpu => 1) { strategy_module.new }
+        Timeout::timeout(1) { Secure.ly(:limit_cpu => 1) { strategy_module.new }} # fixme Secure's timeout doens't works
       end
 
       # TODO вынести на уровень выше в подключаемый файл (так как нужен и в контроллере)
