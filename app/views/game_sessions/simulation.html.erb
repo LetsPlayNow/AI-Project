@@ -16,7 +16,7 @@
       <% end %>
     </div>
 
-    <div id="errors" style="display: none">
+    <div id="errors">
       <div id="errors-header">Errors in simulation</div>
       <div id="errors-text"></div>
     </div>
@@ -31,7 +31,7 @@
     </div>
 
     <%= content_tag(:div, nil, id: "visualizer-info", style: 'display: none;',
-                    data: {background_sprite: image_path('game_sessions/background.jpg'),
+                    data: {background_sprite: image_path('game_sessions/background-xy.jpg'),
                            unit_sprite: image_path('game_sessions/unit.png'),
                            shell_sprite: image_path('game_sessions/shell_dark.png')}) %>
 <% end %>
