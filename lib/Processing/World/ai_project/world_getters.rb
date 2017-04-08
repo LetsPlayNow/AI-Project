@@ -19,7 +19,10 @@ module WorldGetters
 
   def get_shells
     shells = []
-    @shells.each {|shell| shells.push(ShellState.new(shell.location.clone, shell.destination.clone))}
+    @shells.each do |shell|
+      shells.push(ShellState.new(shell.location.clone, shell.destination.clone,
+                                 shell.speed, shell.damage, shell.radius))
+    end
     shells
   end
 end

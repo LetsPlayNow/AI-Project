@@ -1,5 +1,6 @@
 require 'unit'
 require 'shell'
+require 'shell_state'
 require 'world_constants'
 require 'world_getters'
 

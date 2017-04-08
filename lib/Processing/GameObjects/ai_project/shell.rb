@@ -4,7 +4,7 @@ require 'settings'
 
 # todo there are misunderstanding between constants SPEED RADIUS and related class fields
 module AIProject
-	ShellState = Struct.new(:location, :destination) # for world_getters.rb
+	# todo maybe just copy these classes and remove _s hierarchy
 
 	class Shell < Object
 		attr_accessor :location, :destination, :speed, :damage, :radius
