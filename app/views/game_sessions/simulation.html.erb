@@ -1,4 +1,4 @@
-<% provide :title, 'Last success Simulation'%>
+<% provide :title, 'Game Simulaion'%>
 <% provide :head do %>
   <%= javascript_include_tag 'jquery', 'lib/pixi', 'visualizer'%>
   <%= stylesheet_link_tag 'game_sessions/simulation'%>
@@ -16,15 +16,18 @@
       <% end %>
     </div>
 
-    <% if @simulator_output[:errors] %>
-        <div id="errors">
-          <div id="errors-header">Errors in simulation</div>
-          <div id="errors-text"><%= @simulator_output[:errors] %></div>
-        </div>
-    <% end %>
+    <div id="errors" style="display: none">
+      <div id="errors-header">Errors in simulation</div>
+      <div id="errors-text"></div>
+    </div>
 
     <div id="view">
-
+      <div id="please-wait">
+        <div id="message-header">Please wait</div>
+        <hr>
+        <div id="message-body">It takes some time</div>
+        <%= image_tag 'game_sessions/squares.gif', id: 'progress-pie' %>
+      </div>
     </div>
 
     <%= content_tag(:div, nil, id: "visualizer-info", style: 'display: none;',

@@ -172,9 +172,12 @@ function View() {
                 throw new Error("Can't load simulation data");
             })
             .done(function (data) {
+                $("#please-wait").toggle(false);
                 if (data['errors'] != null) {
                     console.log("Errors in simulation");
                     console.log(data['errors']);
+                    $("#errors").toggle();
+                    $("#errors-text").html(data['errors']);
                     return;
                 }
 

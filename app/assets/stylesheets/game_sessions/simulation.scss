@@ -40,3 +40,23 @@
 #errors-text {
   @extend .panel-body;
 }
+
+#please-wait {
+  @extend .jumbotron;
+}
+
+
+#message-header {
+  @extend .h1;
+}
+
+#message-body
+{
+  @extend .h3;
+}
+
+#progress-pie
+{
+  @extend .img-responsive;
+  min-width: 15%;
+}

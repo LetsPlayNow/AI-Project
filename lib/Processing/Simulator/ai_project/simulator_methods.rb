@@ -19,6 +19,7 @@ module AIProject
           case move.move_type
             when :go_to
               # Перемещения юнита затрачивают энергию
+              # todo we can remove some validations now
               distance = unit.speed * delta_time
               energy_need = World::ENERGY_PER_METER * distance
               if energy_need > unit.state.energy # TODO Dangerous comparison
@@ -182,6 +183,7 @@ module AIProject
             strategy.move
             strategy
           end
+          @strategies[id] = strategy_modified
           @move_lists[id] = strategy_modified.instance_variable_get("@my_unit").move_list
         end
       end

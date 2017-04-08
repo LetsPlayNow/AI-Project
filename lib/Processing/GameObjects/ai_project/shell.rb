@@ -2,6 +2,7 @@ require 'object'
 require 'helpers'
 require 'settings'
 
+# todo there are misunderstanding between constants SPEED RADIUS and related class fields
 module AIProject
 	ShellState = Struct.new(:location, :destination) # for world_getters.rb
 

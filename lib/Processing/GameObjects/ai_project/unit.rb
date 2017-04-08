@@ -38,6 +38,25 @@ module AIProject
     def shoot_to(x, y)
       @move_list.push(Move.new(move_type: :shoot_to, destination: Location.new(x,y)))
     end
+
+    # todo crop moves coordinates to field's size
+    def go_left(length)
+      go_to(@location.x - length, @location.y)
+    end
+
+    def go_right(length)
+      go_left(-length)
+    end
+
+    def go_up(length)
+      go_to(@location.x, @location.y+length)
+    end
+
+    def go_down(length)
+      go_up(-length)
+    end
+
+
   end
 
 

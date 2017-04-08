@@ -9,7 +9,7 @@ require 'simulator_methods'
 =end
 
 module AIProject
-  AIProject::Move
+  AIProject::Move # todo this constant is not loading by default and it causes error
   class Simulator
     attr_accessor :strategies
 
