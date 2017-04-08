@@ -76,25 +76,27 @@ class GameSessionsController < ApplicationController
   # +@game+: current_user.game
   # todo we can simulate one times and after that show user cycled battle animation
   def simulation
-    codes = {}
-    @game.players(true).each { |player| codes[player.user_id] = player.code }
-
-    # remove_previous_strategies_definitions
-    begin
-      # fixme как квариант, можно хранить симулятор в переменной и делать refresh
-      @simulator_output = AIProject::Simulator.new(codes).simulate
-    rescue RuntimeError, NameError, Secure::ChildKilledError, Secure::TimeoutError, SecurityError => e
-      @simulator_output = {errors: e.message}
-    end
-
-    if @simulator_output[:errors].nil?
-      @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
-    end
-    add_players_info_in @simulator_output
-
     respond_to do |format|
       format.html
-      format.json {render json: @simulator_output and return}
+      format.json do
+        codes = {}
+        @game.players(true).each { |player| codes[player.user_id] = player.code }
+
+        # remove_previous_strategies_definitions
+        begin
+          # fixme как квариант, можно хранить симулятор в переменной и делать refresh
+          @simulator_output = AIProject::Simulator.new(codes).simulate
+        rescue RuntimeError, NameError, Secure::ChildKilledError, Secure::TimeoutError, SecurityError => e
+          @simulator_output = {errors: e.message}
+        end
+
+        if @simulator_output[:errors].nil?
+          @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
+        end
+        add_players_info_in @simulator_output
+
+        render json: @simulator_output and return
+      end
     end
   end
 
@@ -127,6 +129,7 @@ class GameSessionsController < ApplicationController
                               is_bot: true)
 
       fake_player = Player.create(game_session_id: @game.id,
+                                  code: Codes::CIRCLE,
                                   user_id: fake_user.id)
       # todo leave players not deleted and show list of them to see player's code
     end
