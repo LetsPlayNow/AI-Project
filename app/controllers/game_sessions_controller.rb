@@ -94,11 +94,12 @@ class GameSessionsController < ApplicationController
         end
         add_players_info_in @simulator_output
 
-        render json: @simulator_output and return
+        render json: {message: @simulator_output}
       end
     end
   rescue Exception => e
     logger.debug(e.message)
+    logger.debug(@simulator_output)
   end
 
   # Выводит результаты игры для игрока при выходе
