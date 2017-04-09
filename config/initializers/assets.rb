@@ -9,5 +9,12 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.scss, and all non-JS/CSS in app/assets folder are already added.
 #Rails.application.config.assets.precompile += %w( search.js )
-Rails.application.config.assets.precompile += ['static_pages/*', 'devise/*', 'game_sessions/*', 'lib/*', 'errors/*']
+# Very bad adresation allowed here. I preffer to use adresation from assets root
+Rails.application.config.assets.precompile += ['static_pages/*',
+                                               'devise/*',
+                                               'game_sessions/*',
+                                               'lib/*',
+                                               'errors/*',
+                                               'code_io.js', 'game_page.js', 'game_timer.js', 'game_waiting.js', 'visualizer.js',
+                                               'errors.css', 'users.css']
 # Rails.application.config.assets.precompile += [/^[-_a-zA-Z0-9]*\..*/]
