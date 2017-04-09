@@ -19,6 +19,10 @@ module AI
       config.autoload_paths << simulator_root.join(lib_path)
     end
 
+    # to use own 404 page
+    config.exceptions_app = self.routes
+    # config.consider_all_requests_local = true
+
     #config.encoding = "utf-8"
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

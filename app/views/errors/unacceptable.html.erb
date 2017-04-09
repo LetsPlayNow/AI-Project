@@ -1,0 +1,16 @@
+<% provide :title, 'Errors' %>
+<% provide :head do %>
+  <%= stylesheet_link_tag 'errors' %>
+<% end %>
+
+<% provide :body do %>
+  <div id="message">
+    <h1 id="slogan">This page is a lie</h1>
+    <h2 id="errors">Something broke</h2>
+    <%= link_to "Go home", root_path, id: 'home-link' %>
+  </div>
+
+  <div id="media">
+    <%= image_tag 'errors/broken_cake_is_a_lie.jpg', id: 'cake-lie' %>
+  </div>
+<% end %>

@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'errors/not_found'
+
+  get 'errors/unacceptable'
+
+  get 'errors/internal_error'
+
   devise_for :users
   get '/profile', to: 'users#show', as: :user_profile
   root to: 'static_pages#home'
@@ -21,7 +27,8 @@ Rails.application.routes.draw do
   get '/simulation', to: 'game_sessions#simulation', as: :simulation
   post '/finish_game', to: 'game_sessions#finish_game', as: :finish_game
   get '/demonstration', to: 'game_sessions#demonstration', as: :demonstration
-  get '/404', to: 'application#render_404'
 
-
+  get '404', :to => 'errors#not_found'
+  get '422', :to => 'errors#unacceptable'
+  get '500', :to => 'errors#internal_error'
 end
