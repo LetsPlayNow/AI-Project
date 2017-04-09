@@ -97,9 +97,17 @@ class GameSessionsController < ApplicationController
         render json: @simulator_output.to_json and return
       end
     end
-  rescue Exception => e
+   rescue ActiveRecord::StatementInvalid => e
+    # Make sure someone finds out!
+    # ExceptionNotifier.notify_exception(e)
+    # Rails.logger.error { "[insert details here] : {e}" }
+
+    # Now, try to reconnect
+    ActiveRecord::Base.connection.reconnect!
+    logger.debug("ActiveRecord::StatementInvalid exception was fired!")
+    logger.debug(e)
     logger.debug(e.message)
-    logger.debug(@simulator_output)
+    # logger.debug(@simulator_output)
   end
 
   # Выводит результаты игры для игрока при выходе
