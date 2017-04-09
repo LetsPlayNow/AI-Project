@@ -1,8 +1,9 @@
-# Help
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
-<%= link_to 'Русскоязычная версия этой страницы', help_url(:lang => 'ru')%>
+# Help
+> [Русскоязычная версия этой страницы](help?lang=ru)
 
 ## Contents
+* Introduction
 * About user interface
   * Home page
     * Solo game with bot
@@ -22,7 +23,7 @@
 * Game objects and classes
   * Player's classes
     * class Strategy
-      * Example of Strategy class
+    * Example of Strategy class
   * Simulation classes
     * class Unit *(object: @my_unit)*
     * class Shell
@@ -94,13 +95,14 @@ On each step unit can walk and cast shells (every move spend energy).
 * The values ​​that can take the x and y lie in the range [0; World::MAP_SIZE].
 
 ### Measurement units
-Units of measure received in the game world
+Units of measure received in the game world:
+
 * Game meter (g.m.) - abstract distance unit
 * Game second (g.s.) - analogue of the real seconds, a uniform characteristic of time
 * Game meter / game second (g.m / g.s) - speed
 
 ## Game objects and classes
-Location of objects defined using the coordinates of the center.
+Location of objects defined using the coordinates of the center.  
 All objects in game now are circles with center in (x,y) and radius.
 
 *You can see shortened reference at Game Page*
@@ -109,13 +111,13 @@ All objects in game now are circles with center in (x,y) and radius.
 #### class Strategy
 It contains player's code to control unit.
 
-Simulator will call initialize method once (at start).
-And then method move at every simulation step.
+Simulator will call initialize method once (at start).  
+And then method move at every simulation step.  
 At every step @my_unit and @info will be updated.
 
-Strategy execution limited by 1 second.
+**Strategy execution limited by 1 second.**
 
-##### Example of Strategy class
+#### Example of Strategy class
 Below you can see strategy of unit, which makes unit walk around the square and shoot to it's enemy.
 
 ```ruby
@@ -180,16 +182,17 @@ end
 #### class Unit *(object: @my_unit)*
 ![Unit](static_pages_assets/unit.png)
 
-Unit can walk and shoot to enemy by creating directed shells.
-In the game world Unit is shaped like a circle with a radius of @my_unit.radius.
-At this moment, all the characteristics of all units are the same.
+Unit can walk and shoot to enemy by creating directed shells.  
+In the game world Unit is shaped like a circle with a radius of @my_unit.radius.  
+At this moment, all the characteristics of all units are the same.  
 
 Unit's shoot_to consists in 2 phases:
-* Summon shell for World::SHOOT_DELAY g.s.
-* Then shell appears at a distance of World::SHOOT_DISTANCE from the "border" of Unit    
-It means that distance between edge of Shell and edge of Unit is World::SHOOT_DISTANCE
 
-*With a lack of manna for the shot, the call phase still happen*
+* Summon shell for `World::SHOOT_DELAY` g.s.
+* Then shell appears at a distance of `World::SHOOT_DISTANCE` from the "border" of Unit. 
+  * It means that distance between edge of Shell and edge of Unit is `World::SHOOT_DISTANCE`
+
+**If unit hasn't enough energy to shoot, the summon phase will happen anyway.**
 
 ```ruby
 class Unit
@@ -238,9 +241,9 @@ end
 ### class Shell
 ![Shell](static_pages_assets/shell_dark.png)
 
-The thing, which can be used to destroy enemies.
-It causes damage only if touches unit (intersection or contact of unit and shell circles).
-In a collision with a unit, the shell disappears, dealing the corresponding damage to unit (shell.damage).
+The thing, which can be used to destroy enemies.  
+It causes damage only if touches unit (intersection or contact of unit and shell circles).  
+In a collision with a unit, the shell disappears, dealing the corresponding damage to unit (shell.damage).  
 
 ```ruby
 class Shell

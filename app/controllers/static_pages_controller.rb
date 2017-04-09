@@ -5,6 +5,7 @@ class StaticPagesController < ApplicationController
   before_filter(:choose_language, except: :home)
 
   def home
+    flash[:alert] = nil
   end
 
   def help
