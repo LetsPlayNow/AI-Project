@@ -221,12 +221,12 @@ class GameSessionsController < ApplicationController
 
   # В неактивной игре игроки не имеют права отправлять код
   def check_game_is_active
-    head 500 unless @game.is_active?
+    head 501 unless @game.is_active?
   end
 
   # Нельзя покидать игру до ее завершения
   def check_game_is_ended
-    head 500 if @game.is_active? && !@game.is_a?(DemoGameSession)
+    head 501 if @game.is_active? && !@game.is_a?(DemoGameSession)
   end
 
   # Нужно, чтобы браузер не забывал брать свежие данные о симуляции у сервера (а не лез за ними в хэш)
