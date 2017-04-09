@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   post   '/code',             to: 'game_sessions#set_code'
   get    '/code',             to: 'game_sessions#get_code'
   get '/simulation', to: 'game_sessions#simulation', as: :simulation
+  get '/simulation_data', to: 'game_sessions#simulation_data', as: :simulation_data
   post '/finish_game', to: 'game_sessions#finish_game', as: :finish_game
   get '/demonstration', to: 'game_sessions#demonstration', as: :demonstration
 

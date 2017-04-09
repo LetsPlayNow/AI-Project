@@ -166,7 +166,7 @@ function View() {
     {
         // Загружает данные, созданные симулятором
         // в случае удачи начинает загружать текстуры и запускает настройку
-        jQuery.getJSON('/simulation')
+        jQuery.getJSON('/simulation_data')
             .fail(function () {
                 alert("Can't load simulation data");
                 throw new Error("Can't load simulation data");

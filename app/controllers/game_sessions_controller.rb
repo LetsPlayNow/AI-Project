@@ -9,7 +9,6 @@ class GameSessionsController < ApplicationController
   before_filter :check_game_is_active, only:    :set_code
   before_filter :check_game_is_ended,  only:    :finish_game
   after_action  :destroy,              only:    :finish_game
-  before_filter :confirm_connection, only: :simulation
 
   # Идентификаторы ожидающих игры пользователей
   # TODO store it in database
@@ -72,43 +71,33 @@ class GameSessionsController < ApplicationController
     render json: @user.player.code
   end
 
-  # Симуляция
+  # страница симуляции
+  def simulation
+  end
+
   # +@game+: current_user.game
   # todo we can simulate one times and after that show user cycled battle animation
-  def simulation
-    respond_to do |format|
-      format.html {render 'game_sessions/simulation' and return}
-      format.json do
-        codes = {}
-        @game.players(true).each { |player| codes[player.user_id] = player.code }
+  def simulation_data
+    codes = {}
+    @game.players.each { |player| codes[player.user_id] = player.code }
 
-        # remove_previous_strategies_definitions
-        begin
-          # fixme как квариант, можно хранить симулятор в переменной и делать refresh
-          @simulator_output = AIProject::Simulator.new(codes).simulate
-        rescue RuntimeError, NameError, Secure::ChildKilledError, Secure::TimeoutError, SecurityError, Timeout::Error => e
-          @simulator_output = {errors: e.message}
-        end
-
-        if @simulator_output[:errors].nil?
-          @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
-        end
-        add_players_info_in @simulator_output
-
-        render json: @simulator_output.to_json and return
-      end
+    begin
+      # fixme как квариант, можно хранить симулятор в переменной и делать refresh
+      @simulator_output = AIProject::Simulator.new(codes).simulate
+    rescue RuntimeError, NameError, Secure::ChildKilledError, Secure::TimeoutError, SecurityError, Timeout::Error => e
+      @simulator_output = {errors: e.message}
     end
-   rescue ActiveRecord::StatementInvalid => e
-    # Make sure someone finds out!
-    # ExceptionNotifier.notify_exception(e)
-    # Rails.logger.error { "[insert details here] : {e}" }
 
-    # Now, try to reconnect
-    ActiveRecord::Base.connection.reconnect!
-    logger.debug("ActiveRecord::StatementInvalid exception was fired!")
-    logger.debug(e)
-    logger.debug(e.message)
-    # logger.debug(@simulator_output)
+    if @simulator_output[:errors].nil?
+      @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
+    end
+    add_players_info_in @simulator_output
+
+    render json: @simulator_output and return
+  rescue RuntimeError => e
+    @logger.debug("Simulator output is nil? : #{@simulator_output.nil?}")
+    @logger.debug("Simulator errors : #{@simulator_output[errors]}")
+    @logger.debug("Error is : #{e.message}")
   end
 
   # Выводит результаты игры для игрока при выходе
@@ -222,12 +211,12 @@ class GameSessionsController < ApplicationController
 
   # В неактивной игре игроки не имеют права отправлять код
   def check_game_is_active
-    head 501 unless @game.is_active?
+    head 404 unless @game.is_active?
   end
 
   # Нельзя покидать игру до ее завершения
   def check_game_is_ended
-    head 501 if @game.is_active? && !@game.is_a?(DemoGameSession)
+    head 404 if @game.is_active? && !@game.is_a?(DemoGameSession)
   end
 
   # Нужно, чтобы браузер не забывал брать свежие данные о симуляции у сервера (а не лез за ними в хэш)
@@ -240,15 +229,5 @@ class GameSessionsController < ApplicationController
   # todo fixme
   def preset_variables
     @user = current_user
-  end
-
-  def confirm_connection
-    c = ActiveRecord::Base.connection
-    begin
-      c.select_all "SELECT 1"
-    rescue ActiveRecord::StatementInvalid
-      ActiveRecord::Base.logger.warn "Reconnecting to database"
-      c.reconnect!
-    end
   end
 end
