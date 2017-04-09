@@ -76,7 +76,7 @@ class GameSessionsController < ApplicationController
   # todo we can simulate one times and after that show user cycled battle animation
   def simulation
     respond_to do |format|
-      format.html
+      format.html {render 'game_sessions/simulation' and return}
       format.json do
         codes = {}
         @game.players(true).each { |player| codes[player.user_id] = player.code }
@@ -94,7 +94,7 @@ class GameSessionsController < ApplicationController
         end
         add_players_info_in @simulator_output
 
-        render json: {message: @simulator_output}
+        render json: @simulator_output.to_json and return
       end
     end
   rescue Exception => e
