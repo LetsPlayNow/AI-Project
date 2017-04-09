@@ -75,13 +75,19 @@ class GameSessionsController < ApplicationController
   def simulation
   end
 
+  # Экшен симуляции
   # +@game+: current_user.game
   # todo we can simulate one times and after that show user cycled battle animation
   def simulation_data
     codes = {}
-    @game.players.each { |player| codes[player.user_id] = player.code }
-
     begin
+      @game.players(true).each { |player| codes[player.user_id] = player.code }
+    rescue ActiveRecord::StatementInvalid => e
+      ActiveRecord::Base.connection.reconnect!
+      @game.players(true).each { |player| codes[player.user_id] = player.code }
+    end
+
+      begin
       # fixme как квариант, можно хранить симулятор в переменной и делать refresh
       @simulator_output = AIProject::Simulator.new(codes).simulate
     rescue RuntimeError, NameError, Secure::ChildKilledError, Secure::TimeoutError, SecurityError, Timeout::Error => e
@@ -89,7 +95,11 @@ class GameSessionsController < ApplicationController
     end
 
     if @simulator_output[:errors].nil?
-      @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
+      begin
+        @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
+      rescue ActiveRecord::StatementInvalid => e
+        @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
+      end
     end
     add_players_info_in @simulator_output
 
