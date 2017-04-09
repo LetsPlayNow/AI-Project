@@ -9,6 +9,7 @@ class GameSessionsController < ApplicationController
   before_filter :check_game_is_active, only:    :set_code
   before_filter :check_game_is_ended,  only:    :finish_game
   after_action  :destroy,              only:    :finish_game
+  before_filter :confirm_connection, only: :simulation
 
   # Идентификаторы ожидающих игры пользователей
   # TODO store it in database
@@ -239,5 +240,15 @@ class GameSessionsController < ApplicationController
   # todo fixme
   def preset_variables
     @user = current_user
+  end
+
+  def confirm_connection
+    c = ActiveRecord::Base.connection
+    begin
+      c.select_all "SELECT 1"
+    rescue ActiveRecord::StatementInvalid
+      ActiveRecord::Base.logger.warn "Reconnecting to database"
+      c.reconnect!
+    end
   end
 end
