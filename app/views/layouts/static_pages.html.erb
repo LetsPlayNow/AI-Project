@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title><%= yield :title%></title>
+  <%= favicon_link_tag 'static_pages/ai2.ico' %>
+  <%= stylesheet_link_tag 'application', "static_pages/#{controller.action_name}" %>
+  <%= javascript_include_tag 'application' %>
+</head>
+
+<body>
+<%= render partial: 'partials/navbar' %>
+<div class="container-fluid">
+  <%= content_tag(:div, flash[:error], :id => "flash_error") if flash[:error] %>
+  <%= content_tag(:div, flash[:alert], :id => "flash_alert") if flash[:alert] %>
+  <%= yield %>
+</div>
+</body>
+</html>

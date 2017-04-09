@@ -9,5 +9,5 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.scss, and all non-JS/CSS in app/assets folder are already added.
 #Rails.application.config.assets.precompile += %w( search.js )
-Rails.application.config.assets.paths << "#{Rails.root}/app/assets/videos"
-Rails.application.config.assets.precompile += %w(*.mpeg *.mp4 *.png *.jpg *.jpeg *.gif *.eot *.ttf *.woff *.woff2 *.js *.css *.scss *.ico)
+Rails.application.config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.eot *.ico *.scss *.js *.css)
+# Rails.application.config.assets.precompile += [/^[-_a-zA-Z0-9]*\..*/]

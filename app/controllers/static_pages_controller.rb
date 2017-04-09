@@ -1,6 +1,8 @@
 class StaticPagesController < ApplicationController
-  before_filter :choose_language, except: [:home, :admin_page, :change_game_duration]
-  before_filter :check_if_admin, only: [:admin_page, :change_game_duration]
+  include StaticPagesHelper
+  layout('application', only: :home)
+
+  before_filter(:choose_language, except: :home)
 
   def home
   end
@@ -14,12 +16,6 @@ class StaticPagesController < ApplicationController
   def about
   end
 
-  def support_project
-  end
-
-  def admin_page
-  end
-
   private
     # Выбрать язык в зависимости от параметров адресной строки (по-умолчанию: 'en')
     def choose_language
@@ -30,7 +26,6 @@ class StaticPagesController < ApplicationController
 
     # Составить правильный адрес в зависимости от языка
     def render_true_page
-      @action_name = params[:action]
-      render @action_name + '_' + @lang
+      render full_page_name
     end
 end

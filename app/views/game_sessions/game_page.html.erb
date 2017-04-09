@@ -1,8 +1,10 @@
 <% provide :title, 'Game page'%>
 
 <% provide :head do %>
-    <%= javascript_include_tag 'lib/easytimer', 'game_timer', 'lib/codemirror', 'lib/fullscreen', 'lib/ruby', 'code_io', 'game_page' %>
-    <%= stylesheet_link_tag 'game_sessions/game_page', 'game_sessions/mdn-like', 'game_sessions/codemirror', 'lib/fullscreen' %>
+  <%= javascript_include_tag 'lib/easytimer', 'game_timer', 'lib/codemirror', 'lib/fullscreen', 'lib/ruby', 'code_io', 'game_page' %>
+  <%= stylesheet_link_tag 'game_sessions/game_page', 'game_sessions/mdn-like', 'game_sessions/codemirror', 'lib/fullscreen' %>
+  <%= javascript_include_tag 'https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js'%>
+  <!-- there is not many difference -load from google or from our site. First option may be better-->
 <% end %>
 
 <% provide :body do %>
@@ -36,7 +38,7 @@
       </div>
 
       <div id="game-help">
-        <%= render partial: 'partials/game_help' %>
+        <%= render partial: 'partials/game_help.html.md' %>
       </div>
     </div>
 <% end %>
