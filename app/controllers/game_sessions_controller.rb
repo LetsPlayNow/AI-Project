@@ -87,7 +87,7 @@ class GameSessionsController < ApplicationController
       @game.players(true).each { |player| codes[player.user_id] = player.code }
     end
 
-      begin
+    begin
       # fixme как квариант, можно хранить симулятор в переменной и делать refresh
       @simulator_output = AIProject::Simulator.new(codes).simulate
     rescue RuntimeError, NameError, Secure::ChildKilledError, Secure::TimeoutError, SecurityError, Timeout::Error => e
@@ -104,10 +104,6 @@ class GameSessionsController < ApplicationController
     add_players_info_in @simulator_output
 
     render json: @simulator_output and return
-  rescue RuntimeError => e
-    @logger.debug("Simulator output is nil? : #{@simulator_output.nil?}")
-    @logger.debug("Simulator errors : #{@simulator_output[errors]}")
-    @logger.debug("Error is : #{e.message}")
   end
 
   # Выводит результаты игры для игрока при выходе
