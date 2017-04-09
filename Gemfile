@@ -29,8 +29,9 @@ gem 'sprockets-rails', '2.3.3'
 gem 'markdown-rails'
 gem 'redcarpet'
 gem 'devise'
-# group :production do
-#   gem 'pg', '0.18.2'
-#   gem 'rails_12factor'
-# end
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
 
