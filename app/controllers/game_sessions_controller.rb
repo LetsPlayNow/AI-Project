@@ -6,9 +6,8 @@ class GameSessionsController < ApplicationController
   before_filter :preset_variables
   before_filter :check_has_game,       except: [:start_game, :cancel_waiting, :demonstration]
   before_filter :check_has_no_game,    only:    :demonstration
-  before_filter :check_game_is_active, only: :set_code
+  before_filter :check_game_is_active, only:    :set_code
   before_filter :check_game_is_ended,  only:    :finish_game
-  before_filter :reset_cache,          only:   [:game_page,  :simulation]
   after_action  :destroy,              only:    :finish_game
 
   # Идентификаторы ожидающих игры пользователей
@@ -98,6 +97,8 @@ class GameSessionsController < ApplicationController
         render json: @simulator_output and return
       end
     end
+  rescue Exception => e
+    logger.debug(e.message)
   end
 
   # Выводит результаты игры для игрока при выходе
