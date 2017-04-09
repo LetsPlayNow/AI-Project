@@ -82,7 +82,7 @@ class GameSessionsController < ApplicationController
     codes = {}
     begin
       @game.players(true).each { |player| codes[player.user_id] = player.code }
-    rescue ActiveRecord::StatementInvalid => e
+    rescue ActiveRecord::RuntimeError => e
       ActiveRecord::Base.connection.reconnect!
       @game.players(true).each { |player| codes[player.user_id] = player.code }
     end
@@ -97,7 +97,7 @@ class GameSessionsController < ApplicationController
     if @simulator_output[:errors].nil?
       begin
         @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
-      rescue ActiveRecord::StatementInvalid => e
+      rescue ActiveRecord::RuntimeError => e
         @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
       end
     end
