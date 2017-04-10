@@ -1,4 +1,4 @@
-# AI - Project
+# [AI - Project](https://ai-project-new.herokuapp.com/)
 ![One of game sessions](https://habrastorage.org/files/725/56e/b15/72556eb1580f45b1bc969e5d93ff84ea.gif)
 
 > Everyone can write it's own AI. This is one of the main ideas of this site.  
