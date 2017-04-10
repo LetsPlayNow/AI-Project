@@ -80,7 +80,17 @@ class GameSessionsController < ApplicationController
   # todo we can simulate one times and after that show user cycled battle animation
   def simulation_data
     codes = {}
-    @game.players(true).each { |player| codes[player.user_id] = player.code }
+
+    begin
+      players = @game.players(true)
+    rescue Exception => e
+      logger.debug("Get players is failed")
+      logger.debug(e)
+      logger.debug(e.message)
+    end
+
+
+    players.each { |player| codes[player.user_id] = player.code }
 
     begin
       # fixme как квариант, можно хранить симулятор в переменной и делать refresh
@@ -91,9 +101,9 @@ class GameSessionsController < ApplicationController
       logger.debug("#{e.message}")
     end
 
-    if @simulator_output[:errors].nil?
-      @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
-    end
+    # if @simulator_output[:errors].nil?
+    #   @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
+    # end
     add_players_info_in @simulator_output
 
     render json: @simulator_output
