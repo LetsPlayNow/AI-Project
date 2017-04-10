@@ -108,7 +108,7 @@ class GameSessionsController < ApplicationController
         # if @simulator_output[:errors].nil?
         #   @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
         # end
-        add_players_info_in @simulator_output
+        # add_players_info_in @simulator_output
 
         render json: @simulator_output
       end
