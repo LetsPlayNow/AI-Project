@@ -16,7 +16,13 @@
 /tmp
 
 # Ignore all precompile assets.
-/public/assets/
+/public/assets/*
+
+
+
+# Except fonts (hack fo bootstrap ttf, wot wot2 files)
+!/public/assets/
+!public/assets/fonts/
 
 #Ignore Ruby mine temporary files
 /.idea/AI.iml
@@ -36,3 +42,5 @@ _netrc
 # Ignore all database files
 *.sqlite3
 /db/migrate/
+
+
