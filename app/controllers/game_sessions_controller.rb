@@ -212,17 +212,24 @@ class GameSessionsController < ApplicationController
 
   # В неактивной игре игроки не имеют права отправлять код
   def check_game_is_active
-    head 500 unless @game.is_active?
+    unless @game.is_active?
+      render_error_head
+    end
   end
 
   # Нельзя покидать игру до ее завершения
   def check_game_is_ended
-    head 500 if @game.is_active? && !@game.is_a?(DemoGameSession)
+    if @game.is_active? && !@game.is_a?(DemoGameSession)
+      render_error_head
+    end
   end
 
-  # todo fixme
   def preset_variables
     @user = current_user
+  end
+
+  def render_error_head
+    head 500
   end
 
   def pg_secure_query

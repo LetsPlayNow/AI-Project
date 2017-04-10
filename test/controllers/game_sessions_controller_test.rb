@@ -91,7 +91,7 @@ class GameSessionsControllerTest < ActionController::TestCase
     assert_response :success, "Successfully finish game"
 
     get :game_page
-    assert_response :missing, "Game was finished"
+    assert_redirected_to errors_not_found_path, "Game was finished"
   end
 
   test "simulation" do
@@ -113,7 +113,7 @@ class GameSessionsControllerTest < ActionController::TestCase
 
     # try to get simulation when leaved game
     get :simulation
-    assert_response :missing # maybe there should be error
+    assert_redirected_to errors_not_found_path
   end
 
 

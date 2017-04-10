@@ -24,7 +24,7 @@ class GameSessionIntegrationTest < ActionDispatch::IntegrationTest
 
     # try to get simulation when leaved game
     get simulation_path
-    assert_response :missing # maybe there should be error
+    assert_redirected_to errors_not_found_path
 
     # second played tries simulation when game is over
     # seems like multiuser test does not works
