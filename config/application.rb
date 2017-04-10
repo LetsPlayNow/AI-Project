@@ -20,7 +20,7 @@ module AI
     end
 
     # to use own 404 page
-    # config.exceptions_app = self.routes
+    config.exceptions_app = self.routes
     # config.consider_all_requests_local = true
 
     #config.encoding = "utf-8"
