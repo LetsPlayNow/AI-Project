@@ -79,36 +79,39 @@ class GameSessionsController < ApplicationController
   # +@game+: current_user.game
   # todo we can simulate one times and after that show user cycled battle animation
   def simulation_data
-    codes = {}
+    respond_to :json do
+      codes = {}
 
-    begin
-      @players = @game.players(true)
-      @players.each { |player| codes[player.user_id] = player.code }
-    rescue Exception => e
-      ActiveRecord::Base.connection.reconnect!
-      @players = @game.players(true)
-      @players.each { |player| codes[player.user_id] = player.code }
-      logger.debug("Get players is failed")
-      logger.debug(e)
-      logger.debug(e.message)
+      begin
+        @players = @game.players(true)
+        @players.each { |player| codes[player.user_id] = player.code }
+      rescue Exception => e
+        ActiveRecord::Base.connection.reconnect!
+        @players = @game.players(true)
+        @players.each { |player| codes[player.user_id] = player.code }
+        logger.debug("Get players is failed")
+        logger.debug(e)
+        logger.debug(e.message)
+      end
+
+
+      begin
+        # fixme как квариант, можно хранить симулятор в переменной и делать refresh
+        @simulator_output = AIProject::Simulator.new(codes).simulate
+      rescue RuntimeError, NameError, Secure::ChildKilledError, Secure::TimeoutError, SecurityError, Timeout::Error => e
+        @simulator_output = {errors: e.message}
+        logger.debug("Simulation error: #{e}")
+        logger.debug("#{e.message}")
+      end
+
+      # if @simulator_output[:errors].nil?
+      #   @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
+      # end
+      add_players_info_in @simulator_output
+
+      render json: @simulator_output
     end
 
-
-    begin
-      # fixme как квариант, можно хранить симулятор в переменной и делать refresh
-      @simulator_output = AIProject::Simulator.new(codes).simulate
-    rescue RuntimeError, NameError, Secure::ChildKilledError, Secure::TimeoutError, SecurityError, Timeout::Error => e
-      @simulator_output = {errors: e.message}
-      logger.debug("Simulation error: #{e}")
-      logger.debug("#{e.message}")
-    end
-
-    # if @simulator_output[:errors].nil?
-    #   @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
-    # end
-    add_players_info_in @simulator_output
-
-    render json: @simulator_output
   rescue Exception => e
     logger.debug("simulator output: #{@simulator_output}")
     logger.debug("Simulation Action error: #{e}")
