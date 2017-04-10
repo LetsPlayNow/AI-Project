@@ -84,6 +84,8 @@ class GameSessionsController < ApplicationController
     begin
       players = @game.players(true)
     rescue Exception => e
+      ActiveRecord::Base.connection.reconnect!
+      players = @game.players(true)
       logger.debug("Get players is failed")
       logger.debug(e)
       logger.debug(e.message)
