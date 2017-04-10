@@ -98,6 +98,7 @@ class GameSessionsController < ApplicationController
       begin
         @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
       rescue ActiveRecord::RuntimeError => e
+        ActiveRecord::Base.connection.reconnect!
         @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
       end
     end
