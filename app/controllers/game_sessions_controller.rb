@@ -80,12 +80,7 @@ class GameSessionsController < ApplicationController
   # todo we can simulate one times and after that show user cycled battle animation
   def simulation_data
     codes = {}
-    begin
-      @game.players(true).each { |player| codes[player.user_id] = player.code }
-    rescue ActiveRecord::RuntimeError => e
-      ActiveRecord::Base.connection.reconnect!
-      @game.players(true).each { |player| codes[player.user_id] = player.code }
-    end
+    @game.players(true).each { |player| codes[player.user_id] = player.code }
 
     begin
       # fixme как квариант, можно хранить симулятор в переменной и делать refresh
@@ -95,16 +90,10 @@ class GameSessionsController < ApplicationController
     end
 
     if @simulator_output[:errors].nil?
-      begin
-        @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
-      rescue ActiveRecord::RuntimeError => e
-        ActiveRecord::Base.connection.reconnect!
-        @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
-      end
     end
     add_players_info_in @simulator_output
 
-    render json: @simulator_output and return
+    render json: @simulator_output
   end
 
   # Выводит результаты игры для игрока при выходе
