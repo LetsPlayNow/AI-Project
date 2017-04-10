@@ -82,17 +82,17 @@ class GameSessionsController < ApplicationController
     codes = {}
 
     begin
-      players = @game.players(true)
+      @players = @game.players(true)
+      @players.each { |player| codes[player.user_id] = player.code }
     rescue Exception => e
       ActiveRecord::Base.connection.reconnect!
-      players = @game.players(true)
+      @players = @game.players(true)
+      @players.each { |player| codes[player.user_id] = player.code }
       logger.debug("Get players is failed")
       logger.debug(e)
       logger.debug(e.message)
     end
 
-
-    players.each { |player| codes[player.user_id] = player.code }
 
     begin
       # fixme как квариант, можно хранить симулятор в переменной и делать refresh
@@ -110,7 +110,7 @@ class GameSessionsController < ApplicationController
 
     render json: @simulator_output
   rescue Exception => e
-    logger.debug("simulator output: #{@simulator_output[:state].nil?}")
+    logger.debug("simulator output: #{@simulator_output}")
     logger.debug("Simulation Action error: #{e}")
     logger.debug("#{e.message}")
   end
