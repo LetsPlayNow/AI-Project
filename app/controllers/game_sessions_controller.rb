@@ -87,13 +87,20 @@ class GameSessionsController < ApplicationController
       @simulator_output = AIProject::Simulator.new(codes).simulate
     rescue RuntimeError, NameError, Secure::ChildKilledError, Secure::TimeoutError, SecurityError, Timeout::Error => e
       @simulator_output = {errors: e.message}
+      logger.debug("Simulation error: #{e}")
+      logger.debug("#{e.message}")
     end
 
     if @simulator_output[:errors].nil?
+      @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
     end
     add_players_info_in @simulator_output
 
     render json: @simulator_output
+  rescue Exception => e
+    logger.debug("simulator output: #{@simulator_output[:state].nil?}")
+    logger.debug("Simulation Action error: #{e}")
+    logger.debug("#{e.message}")
   end
 
   # Выводит результаты игры для игрока при выходе
