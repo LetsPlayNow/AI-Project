@@ -228,7 +228,7 @@ class GameSessionsController < ApplicationController
   def pg_secure_query
     begin
       yield
-    rescue PG::ConnectionBad, PG::UnableToSend => e
+    rescue ActiveRecord::StatementInvalid => e
       logger.debug("Connection with PG database was lost")
       logger.debug(e.message)
       ActiveRecord::Base.connection.reconnect!
