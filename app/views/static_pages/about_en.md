@@ -33,8 +33,11 @@ TODO there should be a link.
 It's easier to fix main resume than fix resume everywhere
 
 ## Additional links
-TODO some paragraphs with all related links with their short description
+### [Habrahabr](https://habrahabr.ru/post/270953/)
+Post about realization of code game challenge platforms.
+
 
 ## Open Source
-This site is open source now.
-TODO add github ribbon. Maybe do it yourself
+This site is open source now.  
+Feel free to contribute and open issues.  
+![Github icon](/static_pages_assets/github-icon.png) https://github.com/LetsPlayNow/AI-Project
