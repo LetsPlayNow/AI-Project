@@ -78,14 +78,14 @@ class GameSessionsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        codes = {}
+        @codes = {}
         pg_secure_query do
-          @game.players(true).each { |player| codes[player.user_id] = player.code }
+          @game.players(true).each { |player| @codes[player.user_id] = player.code }
         end
 
         begin
           # fixme как квариант, можно хранить симулятор в переменной и делать refresh
-          @simulator_output = AIProject::Simulator.new(codes).simulate
+          @simulator_output = AIProject::Simulator.new(@codes).simulate
         rescue RuntimeError, NameError, Secure::ChildKilledError, Secure::TimeoutError, SecurityError, Timeout::Error => e
           @simulator_output = {errors: e.message}
         end
@@ -228,7 +228,7 @@ class GameSessionsController < ApplicationController
   def pg_secure_query
     begin
       yield
-    rescue PG::ConnectionBad => e
+    rescue PG::Exception => e
       logger.debug("Connection with PG database was lost")
       logger.debug(e.message)
       ActiveRecord::Base.connection.reconnect!
