@@ -108,7 +108,12 @@ class GameSessionsController < ApplicationController
         # if @simulator_output[:errors].nil?
         #   @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
         # end
-        # add_players_info_in @simulator_output
+        begin
+          add_players_info_in @simulator_output
+        rescue Exception => e
+          ActiveRecord::Base.connection.reconnect!
+          add_players_info_in @simulator_output
+        end
 
         render json: @simulator_output
       end
