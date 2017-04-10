@@ -23,6 +23,3 @@ test:
 production:
   adapter: PostgreSQL
   database: production
-  pool: 5
-  timeout: 5000
-  reconnect: true

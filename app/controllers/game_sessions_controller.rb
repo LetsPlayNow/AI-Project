@@ -71,57 +71,34 @@ class GameSessionsController < ApplicationController
     render json: @user.player.code
   end
 
-  # страница симуляции
-  def simulation
-  end
-
-  # Экшен симуляции
+  # Симуляция
   # +@game+: current_user.game
   # todo we can simulate one times and after that show user cycled battle animation
-  def simulation_data
+  def simulation
     respond_to do |format|
+      format.html
       format.json do
         codes = {}
-
-        begin
-          @players = @game.players(true)
-          @players.each { |player| codes[player.user_id] = player.code }
-        rescue Exception => e
-          ActiveRecord::Base.connection.reconnect!
-          @players = @game.players(true)
-          @players.each { |player| codes[player.user_id] = player.code }
-          logger.debug("Get players is failed")
-          logger.debug(e)
-          logger.debug(e.message)
+        pg_secure_query do
+          @game.players(true).each { |player| codes[player.user_id] = player.code }
         end
-
 
         begin
           # fixme как квариант, можно хранить симулятор в переменной и делать refresh
           @simulator_output = AIProject::Simulator.new(codes).simulate
         rescue RuntimeError, NameError, Secure::ChildKilledError, Secure::TimeoutError, SecurityError, Timeout::Error => e
           @simulator_output = {errors: e.message}
-          logger.debug("Simulation error: #{e}")
-          logger.debug("#{e.message}")
         end
 
-        # if @simulator_output[:errors].nil?
-        #   @game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])
-        # end
-        begin
-          add_players_info_in @simulator_output
-        rescue Exception => e
-          ActiveRecord::Base.connection.reconnect!
-          add_players_info_in @simulator_output
+        if @simulator_output[:errors].nil?
+          pg_secure_query {@game.update_attribute(:winner_id, @simulator_output[:options][:winner_id])}
         end
+
+        pg_secure_query {add_players_info_in @simulator_output}
 
         render json: @simulator_output
       end
     end
-  rescue Exception => e
-    logger.debug("simulator output: #{@simulator_output}")
-    logger.debug("Simulation Action error: #{e}")
-    logger.debug("#{e.message}")
   end
 
   # Выводит результаты игры для игрока при выходе
@@ -235,23 +212,27 @@ class GameSessionsController < ApplicationController
 
   # В неактивной игре игроки не имеют права отправлять код
   def check_game_is_active
-    head 404 unless @game.is_active?
+    head 500 unless @game.is_active?
   end
 
   # Нельзя покидать игру до ее завершения
   def check_game_is_ended
-    head 404 if @game.is_active? && !@game.is_a?(DemoGameSession)
-  end
-
-  # Нужно, чтобы браузер не забывал брать свежие данные о симуляции у сервера (а не лез за ними в хэш)
-  def reset_cache
-    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+    head 500 if @game.is_active? && !@game.is_a?(DemoGameSession)
   end
 
   # todo fixme
   def preset_variables
     @user = current_user
+  end
+
+  def pg_secure_query
+    begin
+      yield
+    rescue PG::ConnectionBad => e
+      logger.debug("Connection with PG database was lost")
+      logger.debug(e.message)
+      ActiveRecord::Base.connection.reconnect!
+      yield
+    end
   end
 end
