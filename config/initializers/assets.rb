@@ -15,6 +15,6 @@ Rails.application.config.assets.precompile += ['static_pages/*',
                                                'game_sessions/*',
                                                'lib/*',
                                                'errors/*',
-                                               'code_io.js', 'game_page.js', 'game_timer.js', 'game_waiting.js', 'visualizer.js',
+                                               'code_io.js', 'game_page.js', 'game_timer.js', 'game_waiting.js', 'visualizer.js', 'google_analitycs.js',
                                                'errors.css', 'users.css']
 # Rails.application.config.assets.precompile += [/^[-_a-zA-Z0-9]*\..*/]
