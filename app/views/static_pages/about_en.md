@@ -22,9 +22,10 @@ who initially knew nothing about Web, Rails, JavaScript, HTML, CSS and several o
 This adventure gave me a lot of experience and knowledge.  
 And it was a good test. It is not easy to keep calm   
 when every unknown function turns into a huge list of nuances and causes no fewer bugs and issues.  
-And you can only ask Google and StackOverflow for help.
-
-Also, the creation of this project took a long time with all my perseverance.  
+And you can only ask Google and StackOverflow for help.  
+Also, the creation of this project took a long time with all my perseverance. 
+ 
+If you have suggestions or you find an error - write about it [here](https://github.com/LetsPlayNow/AI-Project/issues).  
 I will fix errors as my time and effort.  
 So if I'm late with regular fixes, do not be angry. ☺
 
