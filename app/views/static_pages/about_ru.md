@@ -39,4 +39,4 @@ It's easier to fix main resume than fix resume everywhere
 ## Open Source
 Исходники этого сайта доступны на Github. 
 Если в найдете ошибки - создайте issue в репозитории.  
-![Github icon](static_pages/github-icon.png) https://github.com/LetsPlayNow/AI-Project
+![Github icon](static_pages_assets/github-icon.png) https://github.com/LetsPlayNow/AI-Project

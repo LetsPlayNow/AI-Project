@@ -40,4 +40,4 @@ Post about realization of code game challenge platforms.
 ## Open Source
 This site is open source now.  
 Feel free to contribute and open issues.  
-![Github icon](/static_pages_assets/github-icon.png) https://github.com/LetsPlayNow/AI-Project
+![Github icon](static_pages_assets/github-icon.png) https://github.com/LetsPlayNow/AI-Project
