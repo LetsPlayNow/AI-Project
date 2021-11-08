@@ -1,5 +1,5 @@
 # [AI - Project](https://ai-project-new.herokuapp.com/)
-![One of game sessions](https://goo.gl/qDsgo2)
+![One of game sessions](https://user-images.githubusercontent.com/9571479/140824280-6b2bd837-032d-477e-9ecb-f63f84460039.gif)
 
 > Everyone can write it's own AI. This is one of the main ideas of this site.  
 Worldwide conducted a very interesting competition, commonly referred as [Code Game Challenge](https://habrahabr.ru/post/270953/).  
