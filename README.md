@@ -56,7 +56,7 @@ Main features of the Simulator are:
 
 ## Steps to get the application running
 ### Ruby version  
-In developing was used Ruby 2.2.4
+Ruby 2.2.4
 
 ### System dependencies  
 Linux systems (due to `secure` gem)
