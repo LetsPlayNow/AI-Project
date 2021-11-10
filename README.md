@@ -1,31 +1,31 @@
 # [AI - Project](https://ai-project-new.herokuapp.com/)
 ![One of game sessions](https://user-images.githubusercontent.com/9571479/140824280-6b2bd837-032d-477e-9ecb-f63f84460039.gif)
 
-> Everyone can write it's own AI. This is one of the main ideas of this site.  
-Worldwide conducted a very interesting competition, commonly referred as [Code Game Challenge](https://habrahabr.ru/post/270953/).  
-Most of them are held on various programming competitions, like [ACM ICPC](http://icpc.baylor.edu/).  
-They consist in writing the logic of conduct for player-controlled unit that exists in the game world.  
+> Everyone can write their own AI. It is one of the main ideas of this website.  
+[Code Game Challenge](https://habrahabr.ru/post/270953/) is a very interesting competition conducted worldwide in many different forms.  
+Most of them are held as side events at various programming competitions, like [ACM ICPC](http://icpc.baylor.edu/).  
+They consist in writing the logic for a player-controlled unit that performs some actions in the game world.  
 Remember your favorite game.  
 What if you could program the behavior of your character,   
-and then see how it behaves under the control of your code?  
+and then see how it behaves under your code's control?  
 Interesting, isn't it?  
-On this website you can do something similar, and from anywhere, anytime.
+On this website, you can do something similar, and from anywhere, anytime.
 
-This Rails app allows you to participate in [Code Game Challenge](https://habrahabr.ru/post/270953/) compititions.  
+This Rails app allows you to participate in [Code Game Challenge](https://habrahabr.ru/post/270953/) competitions.  
 You can play with other players or train with bots.   
-App contains many interesting WEB techiques and features (check below).
+The app contains many interesting WEB techniques and features (check the list below).
 
 ## Lexicon
 **Strategy**  
-Player's class that defines behavior of your unit (in out case unit is a wizard)
+Player's class that defines the behavior of your unit (in our case, a wizard)
 
 **Simulator (the processing system)**  
-A system that performs simulation of game world based on classes written by players (Strategies)
+A system that performs a simulation of a game world based on classes written by players (Strategies)
 
 **Game step (simulation step)**  
-The time in which the code of all players executed exactly one time.  
-At every step Simulator executes code of all strategies and processes behavior of their units.  
-On each step unit can walk and cast shells (every move spend energy).
+It is a world simulation resolution.
+At every step, Simulator executes the code of all strategies and processes behavior of their units.  
+During this process, units can issue commands to walk and cast shells (each move costs some energy to perform).
 
 ## Features 
 ### Game Sessions 
@@ -33,16 +33,17 @@ Scallable implementation of game sessions.
 
 * Recruit players from the lobby
 * Game Sessions can be limited in time
-* In the end of game session you still able so see game visualization
+* You can see the game visualization at any moment
 
-### My own Simulator 
-Process game world states and players strategies (code which controlls your unit).
+### My Simulator 
+The Simulator processes the game world state and players' strategies code, which control your unit.  
+Main features of the Simulator are:
 * Expandable tiny game engine
-  * Can be added many things like new skills for units, new game objects, limitations & so on
+  * You can add many things, like new skills for units, new game objects, new constraints & so on
 * Secure execution of players strategies classes
-* Support strategies written in Ruby
-* Output is json file
-* Expandable visualizer exists (app/assets/javascripts/visualizer)
+* Support for strategies written in Ruby
+* Output is a JSON file
+* You can visualize output with (app/assets/javascripts/visualizer)
 
 ## Interesting Techniques
 * Number of static pages are written in Markdown
@@ -51,8 +52,9 @@ Process game world states and players strategies (code which controlls your unit
 * Bootstrapped views
 * Custom 404 pages
 * Heroku workaround for Hobby price plan (DB errors)
+* Online code editor for strategies
 
-## Steps to get the application up and running
+## Steps to get the application running
 ### Ruby version  
 In developing was used Ruby 2.2.4
 
@@ -60,23 +62,22 @@ In developing was used Ruby 2.2.4
 Linux systems (due to `secure` gem)
 
 ### Configuration  
-1) Create database for needed environment (prod or dev)  
+1) Create database for required environment (prod or dev)  
 `rake db:schema:load`
 2) Precompile assets  
 `rake assets:clean && rake assets:precompile`
 
-For production you will need also add keys in `config/secrets.yml` and `initializers/devise.rb`
+For production, you will also need to add the keys to `config/secrets.yml` and `initializers/devise.rb`
 
 ### How to run the test suite
-Minitest used as Rails test engine.  
+Tests use `Minitest` library.  
 Use `rake test` to run all tests.
 
 ### Deployment instructions
-This app was deployed on Heroku: 
+The app is deployed on Heroku with 'Hobby' plan:   
 https://ai-project-new.herokuapp.com/
 
-It uses Hobby pricing plan on Heroku.
 #### Heroku Hobby pricing plan issues
-Sometimes PostgresDB closing it's connections.  
-One workaround there - is to rescue these moments and reconnect.  
-This way is implemented in simulation action in GameSession controller.
+Sometimes PostgresDB closes connections.  
+One workaround here is to `rescue` these moments and reconnect.  
+This technique is implemented in simulation action in the GameSession controller.
